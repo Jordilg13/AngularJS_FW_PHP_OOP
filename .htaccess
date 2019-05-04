@@ -1,4 +1,4 @@
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^api/(.*)$ index.html
+RewriteRule api/(.*)$ backend/index.php
 Options +FollowSymLinks -MultiViews

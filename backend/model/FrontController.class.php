@@ -31,22 +31,27 @@ class FrontController {
 
     public function run(){
         include_once dirname(__FILE__).'/../paths.php';
+
         $allowedPages=$this->getAllowedPages(); 
         $this->uri=rtrim($this->uri, '/');
         $cutUrl=explode('/',$this->uri);
-        // $cutUrl[2] = (!isset($cutUrl[2])) ? "home" : $cutUrl[2]; // if isn't set, set home
+        error_log(print_r($cutUrl,1));
 
+        $_POST = json_decode(file_get_contents('php://input'),true); // true makes it parse as an array
+        
+        if (isset($cutUrl[2]) && $cutUrl[2]=='api') {
             if (in_array($cutUrl[3],$allowedPages)){
                 $getParams=array_slice($cutUrl,4);
                 foreach ($getParams as $getParam){
                     $params = explode('-',$getParam);
                     $_GET[$params[0]]=$params[1];
                 }
-                include_once _PROJECT_PATH_.'/module/'.$cutUrl[3].'/controller/'.$cutUrl[3].'.php';
+                include_once _PROJECT_PATH_.'/backend/modules/'.$cutUrl[3].'/controller/'.$cutUrl[3].'.php';
             } else {
                 header('HTTP/1.0 404 Not found');
             }
         }
     }
+}
 
 ?>

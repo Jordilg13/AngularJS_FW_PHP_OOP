@@ -1,5 +1,5 @@
 <?
-include_once _PROJECT_PATH_.'/model/ControllerCore.class.php';
+include_once _PROJECT_PATH_.'/backend/model/ControllerCore.class.php';
 class ModelController extends ControllerCore{
     // static $_instance;
     

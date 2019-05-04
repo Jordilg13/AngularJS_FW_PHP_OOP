@@ -1,4 +1,4 @@
-ebay_api_key
-google_api_key
+*_api_key
 plantilles
 *.ini
+api_keys

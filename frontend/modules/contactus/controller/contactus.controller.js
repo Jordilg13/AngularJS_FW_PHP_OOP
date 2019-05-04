@@ -1,29 +1,33 @@
-project.controller('contactusCtrl', function ($scope) {
-    // $scope.contact = {
-    //     inputName: "",
-    //     inputEmail: "",
-    //     inputSubject: "",
-    //     inputMessage: ""
-    // };
-    console.log("isan esto ja funciona");
-
+project.controller('contactusCtrl', function ($scope,services) {
+    $scope.contact = {
+        inputName: "",
+        inputEmail: "",
+        inputSubject: "",
+        inputMessage: ""
+    };
+    
     $scope.SubmitContact = function () {
-        
+        var data = {
+            "name": $scope.contact.inputName, 
+            "email": $scope.contact.inputEmail, 
+            "subject": $scope.contact.inputSubject, 
+            "message": $scope.contact.inputMessage
+        };
 
-        // var data = {"inputName": $scope.contact.inputName, "inputEmail": $scope.contact.inputEmail, 
-        // "inputSubject": $scope.contact.inputSubject, "inputMessage": $scope.contact.inputMessage,"token":'contact_form'};
-        // var contact_form = JSON.stringify(data);
-        // console.log(contact_form);
-        // services.post('contact', 'process_contact', contact_form).then(function (response) {
-        //     console.log(response);
-        //     response = response.split("|");
-        //     $scope.message = response[1];
-        //     if (response[0].substring(1,5) == 'true') {
-        //         $scope.class = 'alert alert-success';
+        services.req("POST","api/contactus",data).then(function (response) {
+            console.log(response);
+        });
+        
+        // services.post('contact', 'send_cont', contact_form).then(function (response) {
+        //     if (response == 'true') {
+        //             toastr.success('El mensaje ha sido enviado correctamente', 'Mensaje enviado',{
+        //             closeButton: true
+        //         });
         //     } else {
-        //         $scope.class = 'alert alert-error';
+        //             toastr.error('El mensaje no se ha enviado', 'Mensaje no enviado',{
+        //             closeButton: true
+        //         });
         //     }
         // });
-
     };
 });

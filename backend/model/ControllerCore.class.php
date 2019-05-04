@@ -1,11 +1,10 @@
 <?
-include_once _PROJECT_PATH_.'/model/db.class.singleton.php';
+include_once _PROJECT_PATH_.'/backend/model/db.class.singleton.php';
 class ControllerCore{
     // LIMIT must go first of all
     // COUNT mustn't be last
 
     private function addWhereStatement($array){
-        debug($array    );
         $conditions=count($array);
         $query='';
         $limit='';
