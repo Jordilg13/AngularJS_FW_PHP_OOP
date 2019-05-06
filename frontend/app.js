@@ -1,11 +1,16 @@
 // MODULE
-var project = angular.module('project', ['ngRoute']);
+var project = angular.module('project', ['ngRoute','toastr','ui.bootstrap']);
 // CONF
 project.config(['$routeProvider', function ($routeProvider) {$routeProvider
 
         .when('/', {
 			templateUrl	: 'frontend/modules/home/view/home.view.html',
-			controller 	: 'homeCtrl'
+            controller 	: 'homeCtrl',
+            resolve: {
+                products: function (services) {
+                    return services.req("GET","api/home");
+                }
+            }
         })
         
         .when('/contactus', {
@@ -19,7 +24,12 @@ project.config(['$routeProvider', function ($routeProvider) {$routeProvider
 		})
  
         .otherwise("/", {
-            templateUrl: "frontend/modules/home/view/home.view.html", 
-            controller: "homeCtrl"
+            templateUrl	: 'frontend/modules/home/view/home.view.html',
+            controller 	: 'homeCtrl',
+            resolve: {
+                products: function (services) {
+                    return services.req("GET","api/home");
+                }
+            }
         });
     }]);

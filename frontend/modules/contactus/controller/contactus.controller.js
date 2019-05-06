@@ -1,33 +1,27 @@
-project.controller('contactusCtrl', function ($scope,services) {
+project.controller('contactusCtrl', function ($scope,services,toastr) {
     $scope.contact = {
-        inputName: "",
-        inputEmail: "",
-        inputSubject: "",
-        inputMessage: ""
+        name: "",
+        email: "",
+        message: ""
     };
     
     $scope.SubmitContact = function () {
         var data = {
-            "name": $scope.contact.inputName, 
-            "email": $scope.contact.inputEmail, 
-            "subject": $scope.contact.inputSubject, 
-            "message": $scope.contact.inputMessage
+            "name": $scope.contact.name, 
+            "email": $scope.contact.email, 
+            "message": $scope.contact.message
         };
 
         services.req("POST","api/contactus",data).then(function (response) {
-            console.log(response);
+
+            if (response.message == 'Queued. Thank you.') {
+                toastr.success("We sent the email, please check your inbox.", "Email sent.");
+                window.setTimeout(function(){
+                    document.location.href = "";
+                },2000)
+            } else {
+                toastr.error("We aren't able to send you an email, please check if the contact information is correct.", "Something went wrong");
+            }
         });
-        
-        // services.post('contact', 'send_cont', contact_form).then(function (response) {
-        //     if (response == 'true') {
-        //             toastr.success('El mensaje ha sido enviado correctamente', 'Mensaje enviado',{
-        //             closeButton: true
-        //         });
-        //     } else {
-        //             toastr.error('El mensaje no se ha enviado', 'Mensaje no enviado',{
-        //             closeButton: true
-        //         });
-        //     }
-        // });
     };
 });

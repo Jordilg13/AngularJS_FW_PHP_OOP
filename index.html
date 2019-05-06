@@ -23,21 +23,33 @@ License URL: http://creativecommons.org/licenses/by/3.0/
   <div ng-view></div>
   <div ng-include='"frontend/assets/includes/footer.php"'></div>
   <div ng-include='"frontend/assets/includes/bottom_page_.php"'></div>
+  
+  
+  
+  
+  <!-- LIB -->
+  <!-- <script src="frontend/lib/angular.min.js"></script>
+  <script src="frontend/lib/angular-route.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular-route.min.js"></script>
+    <!-- TOASTR -->
+    <link rel="stylesheet" href="https://npmcdn.com/angular-toastr/dist/angular-toastr.css" />
+    <script src="https://npmcdn.com/angular-toastr/dist/angular-toastr.tpls.js"></script>
+    <!-- UI BOOTSTRAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.1.2/ui-bootstrap-tpls.min.js"></script>
     
+  
+  <!-- APP -->
+  <script src="frontend/app.js"></script>
+  <script src="frontend/apiconnector.js"></script>
+  
+  <!-- CONTROLLERS -->
+  <script src="frontend/modules/contactus/controller/contactus.controller.js"></script>
+  <script src="frontend/modules/home/controller/home.controller.js"></script>
 
 
-    <!-- LIB -->
-  	<script src="frontend/lib/angular.min.js"></script>
-    <script src="frontend/lib/angular-route.js"></script>
-      
-
-    <!-- APP -->
-    <script src="frontend/app.js"></script>
-    <!-- <script src="frontend/apiconnector.js"></script> -->
-      
-    <!-- CONTROLLERS -->
-    <script src="frontend/modules/contactus/controller/contactus.controller.js"></script>
-    <script src="frontend/modules/home/controller/home.controller.js"></script>
-
+  
+  
+  
 </body>
 </html>

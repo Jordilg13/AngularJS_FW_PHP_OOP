@@ -1,7 +1,8 @@
 project.factory("services", ['$http','$q', function ($http, $q) {
     var obj = {};
-
+    
     obj.req = function (type,url,data = {}) {
+
         var defered=$q.defer();
         var promise=defered.promise;
         $http({
@@ -16,5 +17,5 @@ project.factory("services", ['$http','$q', function ($http, $q) {
         return promise;
     };
 
-
+    return obj;
 }]);

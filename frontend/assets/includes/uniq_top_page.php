@@ -11,7 +11,6 @@
 	<!--// Meta tag Keywords -->
 
 	<!-- Custom-Files -->
-
 	<link rel="stylesheet" href="frontend/assets/css/bootstrap.css">
 	<!-- Bootstrap-Core-CSS -->
 	<link href="frontend/assets/css/JiSlider.css" rel="stylesheet">
@@ -68,11 +67,19 @@
 
 	<script type="text/javascript" src="frontend/assets/js/jsonserialize.js"></script>
 	
-	<link href="frontend/assets/js/toastr/build/toastr.css" rel="stylesheet"/>
-	<script type="text/javascript" src="frontend/assets/js/toastr/toastr.js"></script>
+	<!-- <link href="frontend/assets/js/toastr/build/toastr.css" rel="stylesheet"/>
+	<script type="text/javascript" src="frontend/assets/js/toastr/toastr.js"></script> -->
+
+	<!-- TOASTR -->
+	<link rel="stylesheet" href="https://npmcdn.com/angular-toastr/dist/angular-toastr.css" />
+	<script src="https://npmcdn.com/angular-toastr/dist/angular-toastr.tpls.js"></script>
+
+	<!-- BOOSTRAP UI -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.1.2/ui-bootstrap-tpls.min.js"></script>
+
 
 	<!-- pagination -->
-	<script type="text/javascript" src="frontend/assets/js/jquery.bootpag.min.js"></script>
+	<!-- <script type="text/javascript" src="frontend/assets/js/jquery.bootpag.min.js"></script> -->
 	<link rel="stylesheet" href="frontend/assets/css/pagination.css">
 
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script> -->
