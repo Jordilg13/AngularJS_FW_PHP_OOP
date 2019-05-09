@@ -1782,3 +1782,15 @@ li.subitem1 p {
 }
 
 /* //responsive */
+
+/* angular dropdown */
+.list-group{
+    position: absolute;
+    z-index: 2;
+}
+
+.list-group-item:hover{
+    color: #337ab7;
+    text-shadow:  0 0 1em #337ab7;
+    cursor: pointer;
+}

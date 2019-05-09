@@ -1,5 +1,6 @@
 // MODULE
 var project = angular.module('project', ['ngRoute','toastr','ui.bootstrap']);
+
 // CONF
 project.config(['$routeProvider', function ($routeProvider) {$routeProvider
 

@@ -35,8 +35,8 @@
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
 
-	<!-- <script type="text/javascript" src="frontend/assets/js/lang.js"></script>
-	<script type="text/javascript" src="frontend/assets/js/main.js"></script> -->
+	<!-- <script type="text/javascript" src="frontend/assets/js/lang.js"></script>-->
+	<script type="text/javascript" src="frontend/assets/js/main.js"></script> 
 
 	<link rel="stylesheet" href="frontend/assets/css/style.css">
 	<!-- <script type="text/javascript" src="frontend/assets/js/menu.js"></script> -->
@@ -76,6 +76,7 @@
 
 	<!-- BOOSTRAP UI -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.1.2/ui-bootstrap-tpls.min.js"></script>
+
 
 
 	<!-- pagination -->

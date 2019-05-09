@@ -73,32 +73,27 @@
     <form class="form-inline ml-auto search-bar-products">
         <div class="md-form my-0">
             <!-- brand input -->
-            <input class="form-control" id="brand" type="text" autocomplete="off" placeholder="Brand" aria-label="Search">
-            <div class="dropdown">
-                <div id="myDropdown1-brand" class="dropdown-content">
-
-                </div>
-            </div>
+            <input placeholder="Product code" type="text" name="country" id="product_code" ng-model="searched.product_code" ng-keyup="complete(searched,$event)" class="form-control" />
+			<ul class="list-group">
+				<li class="list-group-item" ng-repeat="produ in filteredProducts.product_code | limitTo:7" ng-click="fillTextbox(produ,$event)">{{produ}}</li>
+			</ul>
         </div>
         <div class="md-form my-0">
-            <!-- name input -->
-            <input class="form-control" id="product_name" type="text" autocomplete="off" placeholder="Product name" aria-label="Search">
-            <div class="dropdown">
-                <div id="myDropdown1-product_name" class="dropdown-content">
+            <input placeholder="Product name" type="text" name="country" id="product_name" ng-model="searched.product_name" ng-keyup="complete(searched,$event)" class="form-control" />
+			<ul class="list-group">
+				<li class="list-group-item" ng-repeat="produ in filteredProducts.product_name | limitTo:7" ng-click="fillTextbox(produ,$event)">{{produ}}</li>
+			</ul>
 
-                </div>
-            </div>
         </div>
         <div class="md-form my-0">
-            <!-- date input -->
-            <input class="form-control" id="available_until" type="text" autocomplete="off" placeholder="Available until" aria-label="Search">
-            <div class="dropdown">
-                <div id="myDropdown1-available_until" class="dropdown-content">
+            <input placeholder="Available until" type="text" name="country" id="available_until" ng-model="searched.available_until" ng-keyup="complete(searched,$event)" class="form-control" />
+			<ul class="list-group">
+				<li class="list-group-item" ng-repeat="produ in filteredProducts.available_until | limitTo:7" ng-click="fillTextbox(produ,$event)">{{produ}}</li>
+			</ul>
 
-                </div>
-            </div>
         </div>
-        <a class="btn btn-default" id="submit_button_searcher_home">Search</a>
+        <!-- <a class="btn btn-default" id="submit_button_searcher_home">Search</a> -->
+        <md-button class="md-raised">Search</md-button>
     </form>
 
     <div class="container py-xl-5 py-lg-3" >
