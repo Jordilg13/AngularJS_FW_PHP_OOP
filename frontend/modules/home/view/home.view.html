@@ -73,37 +73,37 @@
     <form class="form-inline ml-auto search-bar-products">
         <div class="md-form my-0">
             <!-- brand input -->
-            <input placeholder="Product code" type="text" name="country" id="product_code" ng-model="searched.product_code" ng-keyup="complete(searched,$event)" class="form-control" />
-			<ul class="list-group">
-				<li class="list-group-item" ng-repeat="produ in filteredProducts.product_code | limitTo:7" ng-click="fillTextbox(produ,$event)">{{produ}}</li>
+            <input placeholder="Product code" type="text" name="country" id="product_code" ng-model="searched.product_code" ng-keyup="complete(searched,$event)" class="form-control" ng-focus="closesuggestions=true" autocomplete="off"/>
+			<ul class="list-group" ng-show="closesuggestions">
+				<li class="list-group-item" ng-repeat="produ in filteredProducts.product_code | limitTo:7 track by $index" ng-click="fillTextbox(produ,$event)">{{produ}}</li>
 			</ul>
         </div>
         <div class="md-form my-0">
-            <input placeholder="Product name" type="text" name="country" id="product_name" ng-model="searched.product_name" ng-keyup="complete(searched,$event)" class="form-control" />
-			<ul class="list-group">
-				<li class="list-group-item" ng-repeat="produ in filteredProducts.product_name | limitTo:7" ng-click="fillTextbox(produ,$event)">{{produ}}</li>
+            <input placeholder="Product name" type="text" name="country" id="product_name" ng-model="searched.product_name" ng-keyup="complete(searched,$event)" class="form-control" ng-focus="closesuggestions2=true" autocomplete="off"/>
+			<ul class="list-group" ng-show="closesuggestions2">
+				<li class="list-group-item" ng-repeat="produ in filteredProducts.product_name | limitTo:7 track by $index" ng-click="fillTextbox(produ,$event)">{{produ}}</li>
 			</ul>
 
         </div>
         <div class="md-form my-0">
-            <input placeholder="Available until" type="text" name="country" id="available_until" ng-model="searched.available_until" ng-keyup="complete(searched,$event)" class="form-control" />
-			<ul class="list-group">
-				<li class="list-group-item" ng-repeat="produ in filteredProducts.available_until | limitTo:7" ng-click="fillTextbox(produ,$event)">{{produ}}</li>
+            <input placeholder="Available until" type="text" name="country" id="available_until" ng-model="searched.available_until" ng-keyup="complete(searched,$event)" class="form-control" ng-focus="closesuggestion3=true" autocomplete="off"/>
+			<ul class="list-group" ng-show="closesuggestion3">
+				<li class="list-group-item" ng-repeat="produ in filteredProducts.available_until | limitTo:7 track by $index" ng-click="fillTextbox(produ,$event)">{{produ}}</li>
 			</ul>
 
         </div>
         <!-- <a class="btn btn-default" id="submit_button_searcher_home">Search</a> -->
-        <md-button class="md-raised">Search</md-button>
+        <button class="btn btn-default" ng-click="searchButton(searched)">Search</button>
     </form>
 
     <div class="container py-xl-5 py-lg-3" >
         <h3 class="tittle text-center text-uppercase text-white font-weight-bold mb-sm-5 mb-4">Popular products</h3>
 
 
-        
-        <div class="row box2" id="home_products" >
+        <shopproducts/>
+        <!-- <div class="row box2" id="home_products" >
             <div class='col-md-3 col-6 s-1' ng-repeat="r in filteredproducts">
-                <a>
+                <a href="#/shop/{{r.product_code}}">
                     <div class='view view-fifth'>
                         <i class='fas fa-home'></i>
                         <div class='mask'>
@@ -112,7 +112,6 @@
                     </div>
                 </a>
             </div>
-            <!-- <h4>{{r.name}}</h4> -->
         </div>
         <div id="pager">
                 <uib-pagination class="pagination" 
@@ -123,7 +122,7 @@
                     next-text="&rsaquo;" 
                     items-per-page="numPerPage"
                 />
-            </div>
+        </div> -->
     </div>
 </div>
 

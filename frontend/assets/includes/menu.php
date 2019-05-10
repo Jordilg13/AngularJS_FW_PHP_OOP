@@ -17,7 +17,7 @@
         <div class="collapse navbar-collapse navbar-toggle " id="navbarNavAltMarkup">
             <ul class="navbar-nav mx-xl-auto">
                 <li>
-                    <a class="nav-link text-uppercase" id="home_button" href="/angular/" data-tr="Homepage">Homepage</a>
+                    <a class="nav-link text-uppercase" id="home_button" href="#/" data-tr="Homepage">Homepage</a>
                 </li>
                 <li>
                     <a class="nav-link text-uppercase" id="products_crud" href="products_crud" data-tr="Products">Products</a>
@@ -41,10 +41,10 @@
 						</div>
 					</li> -->
                 <li>
-                    <a class="nav-link text-uppercase" id="likes_controller" href="likes" data-tr="Likes">Likes</a>
+                    <a class="nav-link text-uppercase" id="likes_controller" href="#/likes" data-tr="Likes">Likes</a>
                 </li>
                 <li>
-                    <a class="nav-link text-uppercase" id="shop_controller" href="shop" data-tr="Shop">Shop</a>
+                    <a class="nav-link text-uppercase" id="shop_controller" href="#/shop" data-tr="Shop">Shop</a>
                 </li>
             </ul>
             <div class="top-info text-lg-right text-center mt-lg-0 mt-3">

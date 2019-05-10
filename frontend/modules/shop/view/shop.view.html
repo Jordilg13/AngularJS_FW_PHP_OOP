@@ -1,0 +1,138 @@
+<!-- <script type="text/javascript" src="<? echo _PROJECT_URL_; ?>/module/shop/view/js/main_shop.js?jsVersion=<? echo _JS_VERSION_ ?>"></script>
+<script type="text/javascript" src="<? echo _PROJECT_URL_; ?>/module/shop/view/js/shop_map.js?jsVersion=<? echo _JS_VERSION_ ?>"></script>
+<script type="text/javascript" src="<? echo _PROJECT_URL_; ?>/view/js/shop/functions_shop.js?jsVersion=<? echo _JS_VERSION_ ?>"></script>
+<script type="text/javascript" src="<? echo _PROJECT_URL_; ?>/view/js/pagination_functions.js?jsVersion=<? echo _JS_VERSION_ ?>"></script> -->
+
+<section class="news2 py-5" id="feedback">
+        <form class="form-inline ml-auto search-bar-products">
+                <div class="md-form my-0">
+                    <!-- brand input -->
+                    <input placeholder="Product code" type="text" name="country" id="product_code" ng-model="searched.product_code" ng-keyup="complete(searched,$event)" class="form-control" ng-blur="closesuggestions=false" ng-focus="closesuggestions=true" autocomplete="off"/>
+                    <ul class="list-group" ng-show="closesuggestions">
+                        <li class="list-group-item" ng-repeat="produ in filteredProducts.product_code | limitTo:7" ng-click="fillTextbox(produ,$event)">{{produ}}</li>
+                    </ul>
+                </div>
+                <div class="md-form my-0">
+                    <input placeholder="Product name" type="text" name="country" id="product_name" ng-model="searched.product_name" ng-keyup="complete(searched,$event)" class="form-control" ng-blur="closesuggestions2=false" ng-focus="closesuggestions2=true" autocomplete="off"/>
+                    <ul class="list-group" ng-show="closesuggestions2">
+                        <li class="list-group-item" ng-repeat="produ in filteredProducts.product_name | limitTo:7" ng-click="fillTextbox(produ,$event)">{{produ}}</li>
+                    </ul>
+        
+                </div>
+                <div class="md-form my-0">
+                    <input placeholder="Available until" type="text" name="country" id="available_until" ng-model="searched.available_until" ng-keyup="complete(searched,$event)" class="form-control" ng-blur="closesuggestion3=false" ng-focus="closesuggestion3=true" autocomplete="off"/>
+                    <ul class="list-group" ng-show="closesuggestion3">
+                        <li class="list-group-item" ng-repeat="produ in filteredProducts.available_until | limitTo:7" ng-click="fillTextbox(produ,$event)">{{produ}}</li>
+                    </ul>
+        
+                </div>
+                <button class="btn btn-default" ng-click="searchButton(searched)">Search</button>
+            </form>
+    <!-- <div class="container py-xl-5 py-lg-3">
+		<h3 class="tittle text-center text-uppercase text-white font-weight-bold mb-sm-5 mb-4">Filtered products</h3>
+        <div class="row box2" id="home_products" >
+                <div class='col-md-3 col-6 s-1' ng-repeat="r in filteredproducts">
+                    <a href="#/shop/{{r.product_code}}">
+                        <div class='view view-fifth'>
+                            <i class='fas fa-home'></i>
+                            <div class='mask'>
+                                <h4 id='individual_card' name='{{r.product_code}}'>{{r.product_name}}   {{r.price}}€<p id='{{r.product_code}}' class='like'>❤</p></h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div id="pager">
+                    <uib-pagination class="pagination" 
+                        total-items="products.length" 
+                        ng-model="currentPage"
+                        ng-change="pageChanged()" 
+                        previous-text="&lsaquo;" 
+                        next-text="&rsaquo;" 
+                        items-per-page="numPerPage"
+                    />
+                </div> -->
+        <shopproducts></shopproducts>
+	</div>
+	<div class="col-12">
+  <div class="panel panel-default">
+      <div class="panel-head">
+          <div class="panel-title">Related products</div>
+      </div>
+      <div class="panel-wrapper">
+          <div class="panel-body">
+              <div class="row">
+                  <div class="col-12 related-product">
+                      <div class="owl-carousel owl-theme multi-item-slider" id="api_products">
+
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+</section>
+<style>/* Always set the map height explicitly to define the size of the div
+    * element that contains the map. */
+    #map {
+        height: 65%;
+    }
+    /* Optional: Makes the sample page fill the window. */
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }</style>
+
+<div id="map"></div>
+
+
+<!-- <section id="product_modal">
+        <div id="details_product">
+            <div id="details">
+                <div id="container">
+                    <div class="row">
+                        <div class="col-md-10"><img id="imgProductModal" src=""></div></br>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">Id: </div>
+                        <div id="product_codeProductModal" class="col-md-10"></div></br>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">Name: </div>
+                        <div id="product_nameProductModal" class="col-md-10"></div></br>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">Brand: </div>
+                        <div id="brandProductModal" class="col-md-10"></div></br>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">Manufacturer email: </div>
+                        <div id="m_emailProductModal" class="col-md-10"></div></br>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">Price: </div>
+                        <div id="priceProductModal" class="col-md-10"></div></br>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">State of product: </div>
+                        <div id="state_productProductModal" class="col-md-10"></div></br>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">Type: </div>
+                        <div id="product_typeProductModal" class="col-md-10"></div></br>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">Processor type: </div>
+                        <div id="processor_typeProductModal" class="col-md-10"></div></br>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">Available until: </div>
+                        <div id="available_untilProductModal" class="col-md-10"></div></br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->

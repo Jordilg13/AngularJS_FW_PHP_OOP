@@ -91,6 +91,12 @@
 
 	<!-- <script type="text/javascript" src="/module/contactusfrontend/assets/js/contactus.js"></script> -->
 
+	<!-- SHOP -->
+	<!-- <script type="text/javascript" src="frontend/modules/shop/view/js/main_shop.js?jsVersion=<? echo _JS_VERSION_ ?>"></script>
+	<script type="text/javascript" src="frontend/modules/shop/view/js/shop_map.js?jsVersion=<? echo _JS_VERSION_ ?>"></script>
+	<script type="text/javascript" src="frontend/view/js/shop/functions_shop.js?jsVersion=<? echo _JS_VERSION_ ?>"></script>
+	<script type="text/javascript" src="frontend/view/js/pagination_functions.js?jsVersion=<? echo _JS_VERSION_ ?>"></script> -->
+
 <!-- likes -->
     <!-- jqwidgets -->
 	<link rel="stylesheet" href="frontend/assets/js/jqwidgets/jqwidgets/styles/jqx.metro.css" type="text/css" />

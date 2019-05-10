@@ -1,21 +1,14 @@
-project.controller('homeCtrl', function ($scope, products) {
-   // $scope.closesuggestions  = true;
-   // $scope.closesuggestions2 = true;
-   // $scope.closesuggestions3 = true;
-   
-   // // pagination
-   // $scope.products = products;
-   // $scope.numPerPage = 4;
-   // $scope.currentPage = 1;
-   // $scope.filteredproducts = $scope.products.slice(0, 4);
-   // $scope.filteredProducts = {};
-   // $scope.pageChanged = function () {
-   //    var startPos = ($scope.currentPage - 1) * 4;
-   //    $scope.filteredproducts = $scope.products.slice(startPos, startPos + 4);
-   // };
-
-
-
+project.controller('shopCtrl', function ($scope,products) {
+     // pagination
+   $scope.products = products;
+   $scope.numPerPage = 4;
+   $scope.currentPage = 1;
+   $scope.filteredproducts = $scope.products.slice(0, 4);
+   $scope.filteredProducts = {};
+   $scope.pageChanged = function () {
+      var startPos = ($scope.currentPage - 1) * 4;
+      $scope.filteredproducts = $scope.products.slice(startPos, startPos + 4);
+   };
 
    // autocomplete
    var filteredArray = [];
@@ -58,15 +51,5 @@ project.controller('homeCtrl', function ($scope, products) {
       $scope.closesuggestions3 = false;
    }
 
-
-
-   // search button
-   $scope.searchButton = function(searched){
-      if (searched) {
-         console.log(searched);         
-      } else {
-         console.log("empty");
-      }
-   }
-
-});
+ });
+ 
