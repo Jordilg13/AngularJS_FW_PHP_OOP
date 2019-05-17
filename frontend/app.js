@@ -39,6 +39,34 @@ project.config(['$routeProvider', function ($routeProvider) {$routeProvider
 			controller 	: 'contactusCtrl'
         })
 
+        .when('/login', {
+			templateUrl	: 'frontend/modules/login/view/login.view.html',
+        })
+
+        .when('/register', {
+			templateUrl	: 'frontend/modules/login/view/register.view.html',
+			controller 	: 'registerCtrl'
+        })
+        
+        .when('/confirmaccount/:username/:token', {
+			resolve: {
+                confiracc: function(services, $route,toastr){
+                    return services.req("POST","api/login/username-"+$route.current.params.username,{op: "enableaccount", token: $route.current.params.token}).then(function(response){
+                        response=JSON.parse(JSON.stringify(response));
+                        console.log(response);
+                        if (response == "true") {
+                            toastr.success("Your account has been activated succesfully.","Enjoy!");
+                            location.href="#/";
+                        } else {
+                            toastr.error("Something went wrong.","Error");
+                            location.href="#/";
+                        }
+                    });
+                }
+            }
+        })
+
+
  
         .otherwise("/", {
             templateUrl	: 'frontend/modules/home/view/home.view.html',

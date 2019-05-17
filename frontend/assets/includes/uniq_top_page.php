@@ -85,9 +85,9 @@
 
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script> -->
 
-    <!-- <script async defer
+    <script async defer
 	src="https://maps.googleapis.com/maps/api/js?key=<? echo _GOOGLE_API_KEY_?>&callback=initMap">
-	</script> -->
+	</script>
 
 	<!-- <script type="text/javascript" src="/module/contactusfrontend/assets/js/contactus.js"></script> -->
 

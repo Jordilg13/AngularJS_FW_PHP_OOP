@@ -1,0 +1,47 @@
+
+
+
+
+<!-- <script src="<? echo _PROJECT_URL_; ?>/module/login/view/js/main_login.js"></script> -->
+<script src="<? echo _PROJECT_URL_; ?>/module/login/view/js/login_animations.js"></script>
+<script src="<? echo _PROJECT_URL_; ?>/view/js/regexp_validators/validators.js"></script>
+
+
+<!-- <div id="login_header"></div> -->
+<div class="container">
+	<div class="row">
+
+		<!-- register -->
+<div class="col-md-6 col-md-offset-3">
+        <h2>Register</h2>
+        <form name="form" role="form">
+            <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
+                <label for="username">Username*</label>
+                <input type="text" name="username" id="username" class="form-control" ng-model="registerdata.username" required />
+                <span class="text-danger" ng-show="form.username.$error.required && (form.username.$dirty || form.username.$touched)">Input a valid username</span>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error': form.email.$dirty && form.email.$error.required }">
+                <label for="email">Email*</label>
+                <input type="email" name="email" id="email" class="form-control" ng-model="registerdata.email" required />
+                <span class="text-danger" ng-show="form.email.$error.required && (form.email.$dirty || form.email.$touched)">Input a valid email</span>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
+                <label for="password">Password*</label>
+                <input type="password" name="password" id="password" class="form-control" ng-model="registerdata.password" required />
+                <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error': form.password2.$dirty && form.password2.$error.required }">
+                <label for="password2">Confirm Password*</label>
+                <input compare-to="registerdata.password" type="password" name="confirmPassword" id="confirmPassword" class="form-control" ng-model="password2" required />
+                <span ng-show="form.confirmPassword.$error.noMatch" class="help-block">Password doesn't match</span>
+            </div>
+            <div class="form-actions">
+                <button type="button" ng-disabled="form.$invalid || register.dataLoading" class="btn btn-primary" ng-click="register()">Register</button>
+                <img ng-if="register.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                <a href="#/login" class="btn btn-link">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+	</div>
+</div>

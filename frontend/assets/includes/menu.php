@@ -48,20 +48,34 @@
                 </li>
             </ul>
             <div class="top-info text-lg-right text-center mt-lg-0 mt-3">
-                <ul class="navbar-nav mx-xl-auto">
-                    <li class="text-white mr-xl-4 mr-2 ml-xl-0 ml-lg-5">+ 12345678099</li>
-                    <!-- <li><button class="btn btn-primary btn-lg" href="#signup" data-toggle="modal" data-target=".bs-modal-sm">Sign In/Register</button></li> -->
-                    <!-- <button class="login_button" style="margin: 10px;">Login</button> -->
-                    <li class="text-white mr-xl-4 mr-2 ml-xl-0 ml-lg-5">
+                <ul class="navbar-nav mx-xl-auto" ng-controller="loginCtrl">
+                    
+                    <li class="text-white mr-xl-4 mr-2 ml-xl-0 ml-lg-5" ng-show="loggeduser">
                         <div class="logged">
-                            <!-- <a class="nav-link text-uppercase" id="login" href="index.php?page=login" data-tr="Login">Login</a> -->
-                            <!-- <a class="nav-link text-uppercase" id="logout" data-tr="Logout">Logout</a> -->
+                                <!-- <a class="nav-link text-uppercase" id="login" href="index.php?page=login" data-tr="Login">Login</a> -->
+                                <!-- <a class="nav-link text-uppercase" id="logout" data-tr="Logout">Logout</a> -->
+                            <a id="logout" class="nav-link text-uppercase" data-tr="Logout">Logout</a>
+                            <a id="cart_btn" class="nav-link text-uppercase">
+                                <label class="lbl_num_cart">0</label>
+                            </a>
+                            <p class="nav-link text-uppercase">admin</p>
+                            <img src="http://localhost/web_framework_php/media/default-avatar.png" class="img_login">
+                        </div>
+                    </li>
+                    <li class="text-white mr-xl-4 mr-2 ml-xl-0 ml-lg-5" ng-show="!loggeduser">
+                        <div class="logged">
+                                <!-- <a class="nav-link text-uppercase" id="login" href="index.php?page=login" data-tr="Login">Login</a> -->
+                                <!-- <a class="nav-link text-uppercase" id="logout" data-tr="Logout">Logout</a> -->
+                            <a ng-click="prova()" ng-href="#/login" id="login" class="nav-link text-uppercase" data-tr="Login">Login</a>
                         </div>
                     </li>
                 </ul>
             </div>
+            
         </div>
     </nav>
 </header>
 <!-- //header -->
+
+
 

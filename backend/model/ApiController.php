@@ -43,7 +43,16 @@ switch ($method) {
     case 'PUT':
         $data = [];
         array_push($data,$_GET);
-        parse_str(file_get_contents("php://input"),$dataPUT);
+        
+        if (isset($_POST['fromphp']) && $_POST['fromphp']) {
+            $dataPUT = $_POST;
+        } else {
+            parse_str(file_get_contents("php://input"),$dataPUT);
+        }
+
+        error_log(print_r("---",1));
+        error_log(print_r($dataPUT,1));
+        error_log(print_r("---",1));
         // $data[1] = (object) $data[1];
         array_push($data,$dataPUT['data']);
        

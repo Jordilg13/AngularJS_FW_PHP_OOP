@@ -1,23 +1,10 @@
-project.controller('homeCtrl', function ($scope, products) {
-   // $scope.closesuggestions  = true;
-   // $scope.closesuggestions2 = true;
-   // $scope.closesuggestions3 = true;
-   
-   // // pagination
-   // $scope.products = products;
-   // $scope.numPerPage = 4;
-   // $scope.currentPage = 1;
-   // $scope.filteredproducts = $scope.products.slice(0, 4);
-   // $scope.filteredProducts = {};
-   // $scope.pageChanged = function () {
-   //    var startPos = ($scope.currentPage - 1) * 4;
-   //    $scope.filteredproducts = $scope.products.slice(startPos, startPos + 4);
-   // };
+project.controller('homeCtrl', function ($scope, $location, products, services) {
+   console.log("home controller");
+
+   $scope.filteredProducts = {};
 
 
-
-
-   // autocomplete
+   // autocomplete (this should be a directive, but it has problems with the behavior of the products directive, and i haven't enough time to fix it)
    var filteredArray = [];
    $scope.complete = function (searched, event) {
       var id = event.target.id;
@@ -63,7 +50,15 @@ project.controller('homeCtrl', function ($scope, products) {
    // search button
    $scope.searchButton = function(searched){
       if (searched) {
-         console.log(searched);         
+         console.log(searched);
+         var postdata = {sessionvar: "home_search_params", home_search_params: searched};
+         console.log(postdata);
+         services.req("POST","backend/utils/session/setSession.php",postdata).then(function(data){
+            console.log(JSON.parse(data));
+            if (JSON.parse(data) == "setted") {
+               location.href = "#/shop";
+            }
+         });   
       } else {
          console.log("empty");
       }
