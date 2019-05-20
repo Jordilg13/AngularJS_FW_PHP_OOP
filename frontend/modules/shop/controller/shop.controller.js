@@ -6,7 +6,7 @@ project.controller('shopCtrl', function ($scope, products, services) {
       if (typeof data == "object") {
          var urltopost = "";
          for (const key in data) {
-            urltopost += key+"-"+data[key]+"!/";
+            urltopost += key+"--"+data[key]+"!/";
          }
          console.log(urltopost);
          services.req("POST", "backend/utils/session/clearSession.php",{sessionvar: "home_search_params"}).then(function(){});

@@ -43,7 +43,7 @@ class FrontController {
             if (in_array($cutUrl[3],$allowedPages)){
                 $getParams=array_slice($cutUrl,4);
                 foreach ($getParams as $getParam){
-                    $params = explode('-',$getParam);
+                    $params = explode('--',$getParam);
                     $_GET[$params[0]]=$params[1];
                 }
                 include_once _PROJECT_PATH_.'/backend/modules/'.$cutUrl[3].'/controller/'.$cutUrl[3].'.php';

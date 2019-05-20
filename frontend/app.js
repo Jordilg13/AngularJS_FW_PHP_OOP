@@ -29,7 +29,7 @@ project.config(['$routeProvider', function ($routeProvider) {$routeProvider
             resolve: {
                 detailsproduct: function (services,  $route) {
                     console.log($route.current.params.id);
-                    return services.req("GET","api/home/product_code-"+$route.current.params.id);
+                    return services.req("GET","api/home/product_code--"+$route.current.params.id);
                 },
             }
         })
@@ -40,7 +40,8 @@ project.config(['$routeProvider', function ($routeProvider) {$routeProvider
         })
 
         .when('/login', {
-			templateUrl	: 'frontend/modules/login/view/login.view.html',
+            templateUrl	: 'frontend/modules/login/view/login.view.html',
+            controller 	: 'loginCtrl'
         })
 
         .when('/register', {
@@ -51,16 +52,32 @@ project.config(['$routeProvider', function ($routeProvider) {$routeProvider
         .when('/confirmaccount/:username/:token', {
 			resolve: {
                 confiracc: function(services, $route,toastr){
-                    return services.req("POST","api/login/username-"+$route.current.params.username,{op: "enableaccount", token: $route.current.params.token}).then(function(response){
+                    return services.req("POST","api/login/username--"+$route.current.params.username,{op: "enableaccount", token: $route.current.params.token}).then(function(response){
                         response=JSON.parse(JSON.stringify(response));
                         console.log(response);
                         if (response == "true") {
                             toastr.success("Your account has been activated succesfully.","Enjoy!");
-                            location.href="#/";
                         } else {
                             toastr.error("Something went wrong.","Error");
-                            location.href="#/";
                         }
+                        location.href="#/";
+                    });
+                }
+            }
+        })
+
+        .when('/logout', {
+			resolve: {
+                logout: function(services, $route, toastr){
+                    return services.req("DELETE","api/login").then(function(data){
+                        data = JSON.parse(data);
+                        if (data) {
+                            toastr.success("Logged out");
+                        } else {
+                            toastr.error("Something went wrong","Error");
+                        }
+                        location.href="#/";
+                        
                     });
                 }
             }

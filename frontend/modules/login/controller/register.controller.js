@@ -11,13 +11,14 @@ project.controller('registerCtrl', function ($scope, services, toastr) {
                 services.req("POST","api/login",{"username": $scope.registerdata['username']}).then(function (response) {
 
                     if (response.message == 'Queued. Thank you.') {
-                        toastr.success("We sent the email, please check your inbox.", "Email sent.");
+                        // toastr.success("We sent the email, please check your inbox.", "Email sent.");
                         window.setTimeout(function(){
                             document.location.href = "";
                         },2000)
-                    } else {
-                        toastr.error("We aren't able to send you an email, please check if the contact information is correct.", "Something went wrong");
-                    }
+                    } 
+                    // else {
+                    //     toastr.error("We aren't able to send you an email, please check if the contact information is correct.", "Something went wrong");
+                    // }
                 });
                 toastr.success("We have sent a message to confirm your account.","Email sent");
                 setTimeout(location.href="#/",3000);

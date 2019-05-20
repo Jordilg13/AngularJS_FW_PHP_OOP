@@ -54,19 +54,19 @@
                         <div class="logged">
                                 <!-- <a class="nav-link text-uppercase" id="login" href="index.php?page=login" data-tr="Login">Login</a> -->
                                 <!-- <a class="nav-link text-uppercase" id="logout" data-tr="Logout">Logout</a> -->
-                            <a id="logout" class="nav-link text-uppercase" data-tr="Logout">Logout</a>
+                            <a ng-href="#/logout" id="logout" class="nav-link text-uppercase" data-tr="Logout">Logout</a>
                             <a id="cart_btn" class="nav-link text-uppercase">
                                 <label class="lbl_num_cart">0</label>
                             </a>
-                            <p class="nav-link text-uppercase">admin</p>
-                            <img src="http://localhost/web_framework_php/media/default-avatar.png" class="img_login">
+                            <p class="nav-link text-uppercase" ng-bind="login_card.username"></p>
+                            <img ng-src="frontend/assets/media/{{login_card.img}}" ng-bind="login_card.img" class="img_login">
                         </div>
                     </li>
                     <li class="text-white mr-xl-4 mr-2 ml-xl-0 ml-lg-5" ng-show="!loggeduser">
                         <div class="logged">
                                 <!-- <a class="nav-link text-uppercase" id="login" href="index.php?page=login" data-tr="Login">Login</a> -->
                                 <!-- <a class="nav-link text-uppercase" id="logout" data-tr="Logout">Logout</a> -->
-                            <a ng-click="prova()" ng-href="#/login" id="login" class="nav-link text-uppercase" data-tr="Login">Login</a>
+                            <a ng-href="#/login" id="login" class="nav-link text-uppercase" data-tr="Login">Login</a>
                         </div>
                     </li>
                 </ul>

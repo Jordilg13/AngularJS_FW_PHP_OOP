@@ -13,7 +13,7 @@ $_POST = json_decode(file_get_contents('php://input'),true); // true makes it pa
 session_start();
 // POST = register/login/confirmemail/enableaccount
 // PUT = update user
-// DELETE = logout(i might add delete user if i had a crudSS)
+// DELETE = logout(i might add delete user if i had a crud)
 
 if ($method == "POST") { // login or register
     switch ($_POST['op']) {
@@ -21,16 +21,21 @@ if ($method == "POST") { // login or register
         case 'login':
             $method="GET"; //changed to get because i want to do a select, not an insert
             $object = new Login();
+            $returndata = [];
             include_once _PROJECT_PATH_.'/backend/model/ApiController.php';
             error_log(print_r($_POST,1));
 
             if (password_verify($_POST['data']['password'],$results[0]->password)) {
                 $_SESSION['logged_user']=$results[0]->token;
+                array_push($returndata,true);
+                array_push($returndata,$results);
                 error_log($_SESSION['logged_user']);
-                echo json_encode(true);
+                error_log(print_r($returndata,1));
             } else {
-                echo json_encode(false);
-            }            
+                array_push($returndata,false);
+            }   
+            error_log(json_encode($returndata));     
+            echo json_encode($returndata,JSON_FORCE_OBJECT);
             break;
 
         case 'register':

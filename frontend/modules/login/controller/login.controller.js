@@ -1,48 +1,39 @@
-project.controller('loginCtrl', function ($scope, services, toastr) {
+project.controller('loginCtrl', function ($scope, services, toastr, $route) {
+    $scope.loggeduser = false; 
     console.log("login controller");
+    $scope.login_card = {};
 
+    // detect logged user
     services.req("POST","api/login",{op: "loggeduser"}).then(function(data){
         data = JSON.parse(data);
-        console.log(data);
+        token = data;
+        // get username using token
+        services.req("GET","api/login/token--"+token).then(function(response){
+            if (!response[0]) {
+                $scope.loggeduser = false; 
+            } else {
+                $scope.loggeduser = true;
         
-        if (!data) {
-            setLoginMenu();
-        } else {
-            setLogoutMenu(data);
-        }
+                $scope.login_card['username']=response[0]['username'];
+                $scope.login_card['img']=response[0]['img'];
+            }
+            
+        });
+        
+        
     });
 
-    $scope.login = function () {
-        console.log($scope.logindata);
-        services.req("POST","api/login/username-"+$scope.logindata['username'],{op: "login", data: $scope.logindata}).then(function(data){
-            data = JSON.parse(data);
+    $scope.login = function () {        
+        services.req("POST","api/login/username--"+$scope.logindata['username'],{op: "login", data: $scope.logindata}).then(function(data){
+            // data = JSON.parse(data);
 
-            console.log(data);
-            if (data) {
+            if (data[0]) {
                 toastr.success("You are now logged.","Logged In");
+                $route.reload();
                 setTimeout(location.href="#/",1000);
-                setLogoutMenu($scope);
             } else {
                 toastr.error("Something went wrong.","Error");
             }
-        });
-    }
-
-    function setLoginMenu() {
-        console.log("not logged");
-        $scope.loggeduser = false;
-        $scope.notloggeduser = true;
-    
-    }
-    function setLogoutMenu(data) {
-        console.log("logged");
-        console.log(data);
-        
-        $scope.loggeduser = true;
-        $scope.notloggeduser = false;
-
-        services.req("GET","api/login/token-!"+data).then(function(data){
-            console.log(data);
         });
     }
 });

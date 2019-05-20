@@ -9,7 +9,7 @@ project.directive('shopproducts', function () {
             if (typeof data == "object") {
                 var urltopost = "";
                 for (const key in data) {
-                    urltopost += key + "-" + data[key] + "!/";
+                    urltopost += key + "--" + data[key] + "!/";
                 }
                 console.log(urltopost);
 
