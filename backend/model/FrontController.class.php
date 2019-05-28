@@ -35,7 +35,7 @@ class FrontController {
         $allowedPages=$this->getAllowedPages(); 
         $this->uri=rtrim($this->uri, '/');
         $cutUrl=explode('/',$this->uri);
-        error_log(print_r($cutUrl,1));
+        // error_log(print_r($cutUrl,1));
 
         $_POST = json_decode(file_get_contents('php://input'),true); // true makes it parse as an array
         

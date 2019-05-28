@@ -2,3 +2,4 @@
 plantilles
 *.ini
 keys
+Auth0ClientSecret.txt

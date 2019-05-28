@@ -1,40 +1,67 @@
-project.controller('loginCtrl', function ($scope, services, toastr, $route) {
-    $scope.loggeduser = false; 
-    console.log("login controller");
-    $scope.login_card = {};
+project.controller('loginCtrl', function (services, toastr, $scope, $rootScope, CommonService) {
+  $rootScope.loggeduser = false;
+  console.log("login controller");
+  $rootScope.login_card = {};
 
-    // detect logged user
-    services.req("POST","api/login",{op: "loggeduser"}).then(function(data){
-        data = JSON.parse(data);
-        token = data;
-        // get username using token
-        services.req("GET","api/login/token--"+token).then(function(response){
-            if (!response[0]) {
-                $scope.loggeduser = false; 
-            } else {
-                $scope.loggeduser = true;
-        
-                $scope.login_card['username']=response[0]['username'];
-                $scope.login_card['img']=response[0]['img'];
-            }
-            
-        });
-        
-        
+  $scope.login = function () {
+    services.req("POST", "api/login/username--" + $scope.logindata['username'], { op: "login", data: $scope.logindata }).then(function (data) {
+      // data = JSON.parse(data);
+      // console.loArray\n(\n    [0] => 1\n    [1] => Array\n        (\n            [0] => stdClass Object\n                (\n                    [ID] => 33\n                    [name] => \n                    [email] => jordillopis00@gmail.com\n                    [username] => asdf\n                    [password] => $2y$10$BZgRiWndXt6zSa.ySONA..uytlwIjz5KOwD8C9HPT280tM.8Ny2qS\n                    [type] => Client\n                    [img] => default-avatar.png\n       g(data[1][0]);
+      // TODO: netejar codi
+      if (data[0]) {
+        toastr.success("You are now logged.", "Logged In");
+        location.href = "#/";
+        $rootScope.loggeduser = true;
+
+        $rootScope.login_card['username'] = data[1][0]['username'];
+        $rootScope.login_card['img'] = data[1][0]['img'];
+        // $state.reload();
+      } else {
+        toastr.error("Something went wrong.", "Error");
+      }
+    });
+  }
+
+
+  $scope.recoverPass = function () {
+
+    CommonService.openModal("frontend/modules/login/view/recover_password.html", "loginCtrl");
+
+  }
+
+
+  // send email to recover password
+  $scope.recoverpassdata = {};
+
+  $scope.sendRecoverEmail = function () {
+    console.log($scope.recoverpassdata.email);
+    services.req("GET", "api/login/email--" + $scope.recoverpassdata.email).then(function (userdata) {
+      var recoverdata = { op: "recoverpassword", email: $scope.recoverpassdata.email, token: userdata[0].token };
+
+      services.req("POST", "api/login", recoverdata).then(function (data) {
+        console.log(data);
+        location.href = "#/";
+      });
+
     });
 
-    $scope.login = function () {        
-        services.req("POST","api/login/username--"+$scope.logindata['username'],{op: "login", data: $scope.logindata}).then(function(data){
-            // data = JSON.parse(data);
+  }
+  // var pc = this;
+  // pc.data = "Lorem Name Test"; 
+  // $scope.recover_password = function(size){
 
-            if (data[0]) {
-                toastr.success("You are now logged.","Logged In");
-                $route.reload();
-                setTimeout(location.href="#/",1000);
-            } else {
-                toastr.error("Something went wrong.","Error");
-            }
-        });
-    }
+  //       var modalInstance = $uibModal.open({
+  //         animation: true,
+  //         ariaLabelledBy: 'modal-title',
+  //         ariaDescribedBy: 'modal-body',
+  //         template: 'frontend/modules/login/view/recover_password.html',
+  //         controllerAs: 'pc',
+  //         size: size,
+  //       });
+
+  //       modalInstance.result.then(function () {
+  //         alert("now I'll close the modal");
+  //       });
+  // }
 });
 

@@ -1,7 +1,12 @@
 <?
 include_once dirname(__FILE__).'/../../../paths.php';
 include_once _PROJECT_PATH_.'/backend/model/autoload.php';
-require(_PROJECT_PATH_.'/backend/lib/JWT.php');
+include_once _PROJECT_PATH_."/backend/utils/sendemails/sendemail.php";
+require(_PROJECT_PATH_.'/backend/lib/JWT/JWT.php');
+require(_PROJECT_PATH_.'/backend/lib/JWT/BeforeValidException.php');
+require(_PROJECT_PATH_.'/backend/lib/JWT/ExpiredException.php');
+require(_PROJECT_PATH_.'/backend/lib/JWT/SignatureInvalidException.php');
+
 use Firebase\JWT\JWT;
 
 $method = $_SERVER['REQUEST_METHOD'];
@@ -24,14 +29,35 @@ if ($method == "POST") { // login or register
             $returndata = [];
             include_once _PROJECT_PATH_.'/backend/model/ApiController.php';
             error_log(print_r($_POST,1));
+            // TODO: generate new token each logi, remove token field from db
+            
+            // if password match, and the account is enabled
+            if (password_verify($_POST['data']['password'],$results[0]->password) && $results[0]->enabledAccount == 1) {
+                $payload = array(
+                    "message" => $_POST['data']['username'],
+                    "exp" => time() + (60*30)
+                ); 
+                $_SESSION['logged_user']=JWT::encode($payload,$secret_key);
 
-            if (password_verify($_POST['data']['password'],$results[0]->password)) {
-                $_SESSION['logged_user']=$results[0]->token;
                 array_push($returndata,true);
                 array_push($returndata,$results);
                 error_log($_SESSION['logged_user']);
                 error_log(print_r($returndata,1));
+
+                // check if token is wrong
+                // try {
+                //     $decoded = JWT::decode($results[0]->token,$secret_key,array('HS256'));
+                // } catch (Exception $e) {
+                //     echo json_encode("token expired");
+                //     die();
+                // }
+                // // check if token matches with the user
+                // if ($decoded->message != $results[0]->username) {
+                //     error_log("token doesnt match");
+                //     echo json_encode("token doesnt match");
+                // }  
             } else {
+                error_log("asdf");
                 array_push($returndata,false);
             }   
             error_log(json_encode($returndata));     
@@ -48,14 +74,11 @@ if ($method == "POST") { // login or register
             error_log(print_r($_GET,1));
             include _PROJECT_PATH_.'/backend/model/ApiController.php';
 
-            error_log(print_r($results,1));
-
             if (empty($results)) {
-                error_log(print_r("if",1));
                 // JWT
                 $payload = array(
-                    "message" => "abc",
-                    "exp" => time() + 20
+                    "message" => $_POST['data']['username'],
+                    "exp" => time() + (60*30)
                 ); // time in the future
 
                 $method="POST"; // changed to post to do the insert
@@ -74,8 +97,7 @@ if ($method == "POST") { // login or register
                 if ($results == 1) {
 
                     // sending confirmation email
-                    include_once _PROJECT_PATH_."/backend/utils/sendemails/sendemail.php";
-
+                    // is forced to send the email to my account because there aren't more emails registred in mailgun
                     $json = send_mailgun("jordillopis00@gmail.com","Confirm Account","Welcome ".$emaildata['username'].", we sent you this message to confirm your account. Please click <a href='http://localhost/angular/#/confirmaccount/".$emaildata['username']."/".$emaildata['token']."'>here</a> to confirm your account.");
                     echo json_encode($json);
 
@@ -113,6 +135,25 @@ if ($method == "POST") { // login or register
                 include _PROJECT_PATH_.'/backend/model/ApiController.php';
             }
             
+            echo json_encode($results);
+            break;
+        case 'recoverpassword':
+            $json = send_mailgun($_POST['email'],"Recover Password","Click <a href='http://localhost/angular/#/recoverPassword/".$_POST['token']."'>here</a> to recover your password.");
+            echo json_encode($json);
+            break;
+        case 'changepass':
+            $object = new Login();
+            $method="PUT";
+            $password = $_POST['pass'];
+
+            $_POST =[];
+            $_POST['fromphp']=true;
+
+
+            $_POST['data']['password']=password_hash($password,PASSWORD_BCRYPT);
+            error_log(print_r($_POST,1));
+
+            include _PROJECT_PATH_.'/backend/model/ApiController.php';
             echo json_encode($results);
             break;
         default:

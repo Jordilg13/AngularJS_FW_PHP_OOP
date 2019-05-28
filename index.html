@@ -6,13 +6,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <!DOCTYPE html>
 <html ng-app='project'>
+
 <head>
   <meta charset="UTF-8">
   <title>Outdoor Exterior Category Bootstrap Responsive Web Template | Home :: W3layouts</title>
-	<!-- Meta tag Keywords -->
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta charset="UTF-8" />
-	<meta name="keywords" content="Outdoor Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+  <!-- Meta tag Keywords -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="keywords"
+    content="Outdoor Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 </head>
 
 
@@ -24,29 +26,30 @@ License URL: http://creativecommons.org/licenses/by/3.0/
   <div ng-view></div>
   <div ng-include='"frontend/assets/includes/footer.php"'></div>
   <div ng-include='"frontend/assets/includes/bottom_page_.php"'></div>
-  
-  
-  
-  
+
+
+
+
   <!-- LIB -->
   <!-- <script src="frontend/lib/angular.min.js"></script>
   <script src="frontend/lib/angular-route.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular-route.min.js"></script>
-    <!-- TOASTR -->
-    <link rel="stylesheet" href="https://npmcdn.com/angular-toastr/dist/angular-toastr.css" />
-    <script src="https://npmcdn.com/angular-toastr/dist/angular-toastr.tpls.js"></script>
-    <!-- UI BOOTSTRAP -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.1.2/ui-bootstrap-tpls.min.js"></script>
- 
-  
+  <!-- TOASTR -->
+  <link rel="stylesheet" href="https://npmcdn.com/angular-toastr/dist/angular-toastr.css" />
+  <script src="https://npmcdn.com/angular-toastr/dist/angular-toastr.tpls.js"></script>
+  <!-- UI BOOTSTRAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.1.2/ui-bootstrap-tpls.min.js"></script>
+
+
   <!-- APP -->
   <script src="frontend/app.js"></script>
 
   <!-- FACTORIES -->
   <script src="frontend/apiconnector.js"></script>
+  <script src="frontend/factories/common.service.js"></script>
   <!-- <script src="frontend/modules/login/factories/regex.service.js"></script> -->
-  
+
   <!-- CONTROLLERS -->
   <script src="frontend/modules/contactus/controller/contactus.controller.js"></script>
   <script src="frontend/modules/home/controller/home.controller.js"></script>
@@ -54,6 +57,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
   <script src="frontend/modules/shop/controller/details.controller.js"></script>
   <script src="frontend/modules/login/controller/login.controller.js"></script>
   <script src="frontend/modules/login/controller/register.controller.js"></script>
+  <script src="frontend/modules/login/controller/recoverPass.controller.js"></script>
 
   <!-- DIRECTIVES -->
   <script src="frontend/components/shop_products/directives/shoproducts.directive.js"></script>
@@ -61,10 +65,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 
 
-  <script type="text/javascript" src="frontend/assets/js/main.js"></script> 
+  <script type="text/javascript" src="frontend/assets/js/main.js"></script>
 
 
-  
-  
+
 </body>
+
 </html>

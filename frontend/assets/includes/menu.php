@@ -9,7 +9,7 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <a class="navbar-brand" href="index.html">
-            <img src="frontend/assets/images/logo4.png" class="logo img-fluid" alt="">Outdoor
+            <img src="frontend/assets/images/logo4.png" class="logo img-fluid" alt="">Components
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-toggle" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -24,22 +24,6 @@
                 </li>
                 <li>
                     <a class="nav-link text-uppercase" id="contactus" href="#/contactus" data-tr="Contact Us">Contact Us</a>
-                </li>
-                <!-- <li class="nav-item dropd	own">
-						<a class="nav-link text-uppercase dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-						    aria-expanded="false">Pages
-							<i class="fas fa-caret-down"></i>
-						</a>
-						<div class="dropdown-menu second mt-2" style="display: none;">
-							<a class="dropdown-item scroll" href="#services">Services</a>
-							<a class="dropdown-item" href="faqs.html">Faqs</a>
-
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item scroll" href="#feedback">Testimonials</a>
-							<a class="dropdown-item" href="gallery.html">Gallery</a>
-							<a class="dropdown-item" href="single.html">Some More</a>
-						</div>
-					</li> -->
                 <li>
                     <a class="nav-link text-uppercase" id="likes_controller" href="#/likes" data-tr="Likes">Likes</a>
                 </li>
@@ -48,24 +32,20 @@
                 </li>
             </ul>
             <div class="top-info text-lg-right text-center mt-lg-0 mt-3">
-                <ul class="navbar-nav mx-xl-auto" ng-controller="loginCtrl">
+                <ul class="navbar-nav mx-xl-auto">
                     
                     <li class="text-white mr-xl-4 mr-2 ml-xl-0 ml-lg-5" ng-show="loggeduser">
                         <div class="logged">
-                                <!-- <a class="nav-link text-uppercase" id="login" href="index.php?page=login" data-tr="Login">Login</a> -->
-                                <!-- <a class="nav-link text-uppercase" id="logout" data-tr="Logout">Logout</a> -->
                             <a ng-href="#/logout" id="logout" class="nav-link text-uppercase" data-tr="Logout">Logout</a>
                             <a id="cart_btn" class="nav-link text-uppercase">
                                 <label class="lbl_num_cart">0</label>
                             </a>
-                            <p class="nav-link text-uppercase" ng-bind="login_card.username"></p>
-                            <img ng-src="frontend/assets/media/{{login_card.img}}" ng-bind="login_card.img" class="img_login">
+                            <p class="nav-link text-uppercase" ng-model="login_card.username">{{login_card.username}}</p>
+                            <img ng-src="frontend/assets/media/{{login_card.img}}" ng-model="login_card.img" class="img_login">
                         </div>
                     </li>
                     <li class="text-white mr-xl-4 mr-2 ml-xl-0 ml-lg-5" ng-show="!loggeduser">
                         <div class="logged">
-                                <!-- <a class="nav-link text-uppercase" id="login" href="index.php?page=login" data-tr="Login">Login</a> -->
-                                <!-- <a class="nav-link text-uppercase" id="logout" data-tr="Logout">Logout</a> -->
                             <a ng-href="#/login" id="login" class="nav-link text-uppercase" data-tr="Login">Login</a>
                         </div>
                     </li>
