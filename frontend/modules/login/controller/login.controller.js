@@ -8,6 +8,7 @@ project.controller('loginCtrl', function (services, toastr, $scope, $rootScope, 
       // data = JSON.parse(data);
       // console.loArray\n(\n    [0] => 1\n    [1] => Array\n        (\n            [0] => stdClass Object\n                (\n                    [ID] => 33\n                    [name] => \n                    [email] => jordillopis00@gmail.com\n                    [username] => asdf\n                    [password] => $2y$10$BZgRiWndXt6zSa.ySONA..uytlwIjz5KOwD8C9HPT280tM.8Ny2qS\n                    [type] => Client\n                    [img] => default-avatar.png\n       g(data[1][0]);
       // TODO: netejar codi
+      console.log(data);
       if (data[0]) {
         toastr.success("You are now logged.", "Logged In");
         location.href = "#/";

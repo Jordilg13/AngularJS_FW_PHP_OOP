@@ -40,7 +40,7 @@
                             <a id="cart_btn" class="nav-link text-uppercase">
                                 <label class="lbl_num_cart">0</label>
                             </a>
-                            <p class="nav-link text-uppercase" ng-model="login_card.username">{{login_card.username}}</p>
+                            <a href="#/profile" class="nav-link text-uppercase" ng-model="login_card.username">{{login_card.username}}</a>
                             <img ng-src="frontend/assets/media/{{login_card.img}}" ng-model="login_card.img" class="img_login">
                         </div>
                     </li>

@@ -1,0 +1,122 @@
+<link rel="stylesheet" href="frontend/modules/profile/view/css/profile.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.css">
+<!------ Include the above in your HEAD tag ---------->
+
+
+<div class="container emp-profile">
+    <form method="post">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profile-img">
+                    <img src="" ng-src="frontend/assets/media/{{userinfo.img}}" alt="" />
+                    <!-- <div class="file btn btn-lg btn-primary" ng-click="dropzone()">
+                        Change Photo
+                        <input type="file" name="file" />
+                    </div> -->
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="profile-head">
+                    <h5>
+                        {{userinfo.username}}
+                    </h5>
+                    <h6>
+                        {{userinfo.type}}
+                    </h6>
+                    <!-- <p class="proile-rating">RANKINGS : <span>8/10</span></p> -->
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                                aria-controls="home" aria-selected="true">About</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <input type="button" ng-click="saveprofile()" class="profile-edit-btn" name="btnAddMore" value="Save Profile" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profile-work">
+                    <br>
+                        <div class="dropzone" dropzone="dropzoneConfig" >
+                            <!-- <button dropzone="dropzoneConfig"> -->
+                            <!-- </button> -->
+                        </div>
+                    <p>WORK LINK</p>
+                    <a href="">Website Link</a><br />
+                    <a href="">Bootsnipp Profile</a><br />
+                    <a href="">Bootply Profile</a>
+                    <p>SKILLS</p>ng-model="userinfo.username" 
+                    <a href="">Web Designer</a><br />
+                    <a href="">Web Developer</a><br />
+                    <a href="">WordPress</a><br />
+                    <a href="">WooCommerce</a><br />
+                    <a href="">PHP, .Net</a><br />
+                    <marquee behavior="" direction=""></marquee>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="tab-content profile-tab" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" style="margin-top: -130px;">
+                        <div class="row">
+                            <h4>Information</h4>
+                        </div><br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Username</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" ng-model="userinfo.username" value="{{userinfo.username}}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Name</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" ng-model="userinfo.name" value="{{userinfo.name}}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Email</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="email" ng-model="userinfo.email" value="{{userinfo.email}}">
+                            </div>
+                        </div>
+                        <br><br>
+                        <div class="row">
+                            <h4>Location</h4>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Country</label>
+                            </div>
+                            <div class="col-md-6">
+                                <select class="custom-select" id="countries">
+                                <select class="custom-select" id="provinces" ng-disabled="varr">
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Provinces</label>
+                            </div>
+                            <div class="col-md-6">
+                                <select class="custom-select" id="provinces" ng-disabled="varr">
+                                    
+                                <!-- <select class="custom-select" id="provinces"> -->
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

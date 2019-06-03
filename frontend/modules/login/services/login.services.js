@@ -1,11 +1,9 @@
 project.factory("loginFunctions", ['$http','$q', function (services) {
     var obj = {};
     
-    obj.getUserToken = function() {
-        services.req("GET","").then(function(){
-
-        });
+    obj.getLoggedUser = function() {
+        return services.req("GET","backend/utils/getSession.php",{sessionvar: "logged_user"});
     };
-
+    
     return obj;
 }]);

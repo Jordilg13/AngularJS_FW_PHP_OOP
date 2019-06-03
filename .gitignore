@@ -3,3 +3,7 @@ plantilles
 *.ini
 keys
 Auth0ClientSecret.txt
+*.jpg
+*.png
+*.jpeg
+*.gif

@@ -2,6 +2,9 @@
 include_once dirname(__FILE__).'/../../../paths.php';
 include_once _PROJECT_PATH_.'/backend/model/autoload.php';
 require(_PROJECT_PATH_.'/backend/lib/JWT.php');
+require_once(_PROJECT_PATH_.'/backend/lib/JWT/BeforeValidException.php');
+require_once(_PROJECT_PATH_.'/backend/lib/JWT/ExpiredException.php');
+require_once(_PROJECT_PATH_.'/backend/lib/JWT/SignatureInvalidException.php');
 use Firebase\JWT\JWT;
 
 class LoginFunction {
@@ -116,6 +119,20 @@ class LoginFunction {
         } else {
             echo json_encode(true);
         }
+    }
+
+    public static function refreshToken($username) {
+        $secret_key = parse_ini_file(_PROJECT_PATH_."/backend/keys/jwt_secret_key.ini")['secretkey'];
+        $payload = array(
+            "message" => $username,
+            "exp" => time() + (60*30)
+        ); 
+        $_SESSION['logged_user']=JWT::encode($payload,$secret_key);
+    }
+
+    public static function decodeToken($username) {
+        $secret_key = parse_ini_file(_PROJECT_PATH_."/backend/keys/jwt_secret_key.ini")['secretkey'];
+        return JWT::decode($username,$secret_key,array('HS256'));;
     }
 
 

@@ -1,16 +1,18 @@
 <?
 include_once dirname(__FILE__).'/../../../paths.php';
+include _PROJECT_PATH_.'/backend/utils/obj2arr.php';
 include_once _PROJECT_PATH_.'/backend/model/autoload.php';
 include_once _PROJECT_PATH_."/backend/utils/sendemails/sendemail.php";
-require(_PROJECT_PATH_.'/backend/lib/JWT/JWT.php');
-require(_PROJECT_PATH_.'/backend/lib/JWT/BeforeValidException.php');
-require(_PROJECT_PATH_.'/backend/lib/JWT/ExpiredException.php');
-require(_PROJECT_PATH_.'/backend/lib/JWT/SignatureInvalidException.php');
+include_once _PROJECT_PATH_."/backend/modules/login/utils/functions_login.class.php";
+// require_once(_PROJECT_PATH_.'/backend/lib/JWT/JWT.php');
+// require_once(_PROJECT_PATH_.'/backend/lib/JWT/BeforeValidException.php');
+// require_once(_PROJECT_PATH_.'/backend/lib/JWT/ExpiredException.php');
+// require_once(_PROJECT_PATH_.'/backend/lib/JWT/SignatureInvalidException.php');
 
 use Firebase\JWT\JWT;
 
 $method = $_SERVER['REQUEST_METHOD'];
-$secret_key = parse_ini_file(_PROJECT_PATH_."/backend/keys/jwt_secret_key.ini")['secretkey'];
+// $secret_key = parse_ini_file(_PROJECT_PATH_."/backend/keys/jwt_secret_key.ini")['secretkey'];
 
 $_POST = json_decode(file_get_contents('php://input'),true); // true makes it parse as an array
 
@@ -18,7 +20,20 @@ $_POST = json_decode(file_get_contents('php://input'),true); // true makes it pa
 session_start();
 // POST = register/login/confirmemail/enableaccount
 // PUT = update user
+error_log("asdf");
+error_log(print_r($_GET,1));
+error_log(print_r($method,1));
 // DELETE = logout(i might add delete user if i had a crud)
+
+// in the upload of the image, the method is POST, but the parameters  are stored in $_GET
+if (isset($_GET['op']) && $_GET['op'] == "uploadimg") {
+    error_log("dins if");
+    include_once _PROJECT_PATH_."/backend/modules/login/utils/upload.php";
+    $result_prodpic = upload_files();
+    $_SESSION['result_prodpic'] = $result_prodpic;
+
+    echo json_encode($result_prodpic);
+}
 
 if ($method == "POST") { // login or register
     switch ($_POST['op']) {
@@ -28,16 +43,13 @@ if ($method == "POST") { // login or register
             $object = new Login();
             $returndata = [];
             include_once _PROJECT_PATH_.'/backend/model/ApiController.php';
-            error_log(print_r($_POST,1));
+            error_log("-l-l-l");
+            error_log(print_r($results,1));
             // TODO: generate new token each logi, remove token field from db
             
             // if password match, and the account is enabled
-            if (password_verify($_POST['data']['password'],$results[0]->password) && $results[0]->enabledAccount == 1) {
-                $payload = array(
-                    "message" => $_POST['data']['username'],
-                    "exp" => time() + (60*30)
-                ); 
-                $_SESSION['logged_user']=JWT::encode($payload,$secret_key);
+            if (isset($results[0]->password) && password_verify($_POST['data']['password'],$results[0]->password) && $results[0]->enabledAccount == 1) {
+                LoginFunction::refreshToken($_POST['data']['username']);
 
                 array_push($returndata,true);
                 array_push($returndata,$results);
@@ -63,7 +75,6 @@ if ($method == "POST") { // login or register
             error_log(json_encode($returndata));     
             echo json_encode($returndata,JSON_FORCE_OBJECT);
             break;
-
         case 'register':
             $method="GET"; //changed to get because i want to do a select, not an insert
             $object = new Login();
@@ -75,15 +86,10 @@ if ($method == "POST") { // login or register
             include _PROJECT_PATH_.'/backend/model/ApiController.php';
 
             if (empty($results)) {
-                // JWT
-                $payload = array(
-                    "message" => $_POST['data']['username'],
-                    "exp" => time() + (60*30)
-                ); // time in the future
 
                 $method="POST"; // changed to post to do the insert
                 $_POST['data']['password']=password_hash($_POST['data']['password'],PASSWORD_BCRYPT);
-                $_POST['data']['token']=JWT::encode($payload,$secret_key);
+                LoginFunction::refreshToken($_POST['data']['username']);
                 $emaildata["token"]= $_POST['data']['token'];
                 $_POST['data']=json_encode($_POST['data']);
 
@@ -111,7 +117,23 @@ if ($method == "POST") { // login or register
 
         case 'loggeduser':
             if (isset($_SESSION['logged_user'])) {
-                echo json_encode($_SESSION['logged_user']);
+                $method = "GET";
+                $object = new Login();
+
+                try {
+                    $decoded = LoginFunction::decodeToken($_SESSION['logged_user']);
+                } catch (Exception $e) {
+                    echo json_encode("token expired");
+                    die();
+                } 
+                $_GET['username']=$decoded->message;
+                include _PROJECT_PATH_.'/backend/model/ApiController.php';
+                
+                $rres = new stdClass();
+                $rres->token = $_SESSION['logged_user'];
+                $rres->data = $results;
+                echo json_encode($rres);
+
             } else {
                 echo json_encode(false);
             }
@@ -157,14 +179,14 @@ if ($method == "POST") { // login or register
             echo json_encode($results);
             break;
         default:
-            # code...
+            error_log("default option");
             break;
     }
 } elseif ($method == "GET") {
     $object = new Login();
     include_once _PROJECT_PATH_.'/backend/model/ApiController.php';
-
     echo json_encode($results);
+
 } elseif ($method == "DELETE") {
     unset($_SESSION['logged_user']);
     if (isset($_SESSION['logged_user'])) {
@@ -174,6 +196,11 @@ if ($method == "POST") { // login or register
     }
 
 } 
-// elseif ($method == "PUT") {
-//     # code...
-// }
+elseif ($method == "PUT") {
+    $object = new Login();
+    include _PROJECT_PATH_.'/backend/model/ApiController.php';
+
+    if (isset($_POST['op']) && $_POST['op']="profileupdate") {
+        LoginFunction::refreshToken($_POST['data']['username']);
+    }
+}

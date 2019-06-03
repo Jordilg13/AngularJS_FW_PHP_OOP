@@ -94,6 +94,16 @@ project.config(['$routeProvider', function ($routeProvider) {
             }
         })
 
+        .when('/profile', {
+            templateUrl: 'frontend/modules/profile/view/profile.view.html',
+            controller: 'profileCtrl',
+            resolve: {
+                userdata: function (services) {
+                    return services.req("POST","api/login",{op: "loggeduser"});
+                }
+            }
+        })
+
 
 
         .otherwise("/", {
@@ -109,26 +119,29 @@ project.config(['$routeProvider', function ($routeProvider) {
 }]); // end app.config
 
 project.run(function (services, $rootScope) {
+    
+    $rootScope.$on("$routeChangeSuccess",function(){
 
-    // autodetect logged user
-    $rootScope.login_card = {};
-    services.req("POST", "api/login", { op: "loggeduser" }).then(function (data) {
-        data = JSON.parse(data);
-        token = data;
+        // autodetect logged user
+        $rootScope.login_card = {};
+        services.req("POST", "api/login", { op: "loggeduser" }).then(function (data) {
+        console.log(data);
+        if (data == "false" || data == '"token expired"') {
+            $rootScope.loggeduser = false;
+        } else {
+            // ng-show
+            $rootScope.loggeduser = true;
+            // user data
+            $rootScope.login_card['username'] = data['data'][0]['username'];
+            $rootScope.login_card['img'] = data['data'][0]['img'];
+        }
 
-        // get username using token
-        services.req("GET", "api/login/token--" + token).then(function (response) {
-            if (!response[0]) {
-                $rootScope.loggeduser = false;
-            } else {
-                $rootScope.loggeduser = true;
+    });
 
-                $rootScope.login_card['username'] = response[0]['username'];
-                $rootScope.login_card['img'] = response[0]['img'];
-            }
-        });
     });
 
     //
 
 });
+
+// TODO: remove consoles.log/error_log all website

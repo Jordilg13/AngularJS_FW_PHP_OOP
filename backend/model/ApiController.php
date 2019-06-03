@@ -47,18 +47,18 @@ switch ($method) {
         if (isset($_POST['fromphp']) && $_POST['fromphp']) {
             $dataPUT = $_POST;
         } else {
-            parse_str(file_get_contents("php://input"),$dataPUT);
+            $dataPUT = json_decode(file_get_contents('php://input'),true); 
+            error_log(print_r($dataPUT,1));
         }
 
         error_log(print_r("---",1));
-        error_log(print_r($dataPUT,1));
+        error_log(print_r($dataPUT['data'],1));
         error_log(print_r("---",1));
-        // $data[1] = (object) $data[1];
         array_push($data,$dataPUT['data']);
        
         $meth = "build".$method."Query";
         $response = $object->request($data,$meth);
-        // $response = $object->$method($data);
+
         if ($response){
             $results=$response;
         } else {
