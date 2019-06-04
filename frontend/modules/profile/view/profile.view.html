@@ -48,7 +48,7 @@
                     <a href="">Website Link</a><br />
                     <a href="">Bootsnipp Profile</a><br />
                     <a href="">Bootply Profile</a>
-                    <p>SKILLS</p>ng-model="userinfo.username" 
+                    <p>SKILLS</p>
                     <a href="">Web Designer</a><br />
                     <a href="">Web Developer</a><br />
                     <a href="">WordPress</a><br />
@@ -60,6 +60,7 @@
             <div class="col-md-8">
                 <div class="tab-content profile-tab" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" style="margin-top: -130px;">
+                        <br>
                         <div class="row">
                             <h4>Information</h4>
                         </div><br>
@@ -97,9 +98,14 @@
                                 <label>Country</label>
                             </div>
                             <div class="col-md-6">
-                                <select class="custom-select" id="countries">
-                                <select class="custom-select" id="provinces" ng-disabled="varr">
-                            </div>
+                                <select class="custom-select" 
+                                    ng-change="loadProvinces()" 
+                                    id="countries" 
+                                    ng-options="selectedCountry.name for selectedCountry in countries" 
+                                    ng-model="selectedCountry">
+                                    <option ng-value="sel"></option>
+                                </select>
+                            </div> 
 
                         </div>
                         <div class="row">
@@ -107,9 +113,14 @@
                                 <label>Provinces</label>
                             </div>
                             <div class="col-md-6">
-                                <select class="custom-select" id="provinces" ng-disabled="varr">
+                                <select id="state" class="custom-select"
+                                ng-model="selectedProvince"
+                                ng-disabled="!selectedCountry"
+                                ng-change="changeLocation()"
+                                ng-options="selectedProvince.name for selectedProvince in provinces">
+                                    <option ng-value=""></option>
+                                </select>
                                     
-                                <!-- <select class="custom-select" id="provinces"> -->
                             </div>
                         </div>
                         

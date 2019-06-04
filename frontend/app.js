@@ -125,7 +125,7 @@ project.run(function (services, $rootScope) {
         // autodetect logged user
         $rootScope.login_card = {};
         services.req("POST", "api/login", { op: "loggeduser" }).then(function (data) {
-        console.log(data);
+        console.table(data);
         if (data == "false" || data == '"token expired"') {
             $rootScope.loggeduser = false;
         } else {

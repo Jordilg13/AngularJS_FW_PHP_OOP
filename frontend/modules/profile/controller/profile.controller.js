@@ -1,17 +1,33 @@
 project.controller('profileCtrl', function ($scope, services, userdata, $rootScope) {
-    $scope.varr = true;
 
     // middleware
     if (userdata == "false") {
         location.href = "#/login";
     } else {
         $scope.userinfo = userdata['data'][0];
+
+        // load location
+        services.req("GET", "frontend/assets/resources/countries.json").then(function (countries) {
+            $scope.AllCountries = countries;
+        })
+            .then(function () {
+                if ($scope.userinfo.location.length != 0) {
+                    $scope.AllCountries.forEach(function (value, index, array) {
+                        if (value.code == $scope.userinfo.location.split("-")[0]) {
+                            $scope.sel += value.name;
+                            console.log(value);
+                        }
+                    });
+                } else {
+                    $scope.countries = $scope.AllCountries;
+                }
+            });
     }
 
-    console.log(userdata);
-    $scope.saveprofile = function(){
+    // update profile
+    $scope.saveprofile = function () {
         console.log($scope.userinfo);
-        services.req("PUT","api/login/ID--"+$scope.userinfo.ID,{data: $scope.userinfo, op: "profileupdate"}).then(function(data){
+        services.req("PUT", "api/login/ID--" + $scope.userinfo.ID, { data: $scope.userinfo, op: "profileupdate" }).then(function (data) {
             console.log(data);
             $rootScope.login_card['username'] = $scope.userinfo.username;
             $rootScope.login_card['img'] = $scope.userinfo.img;
@@ -30,7 +46,7 @@ project.controller('profileCtrl', function ($scope, services, userdata, $rootSco
             acceptedFiles: 'image/*,.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF'
         },
         'eventHandlers': {
-            'sending': function (file, formData, xhr) {},
+            'sending': function (file, formData, xhr) { },
             'success': function (file, response) {
                 response = JSON.parse(response);
                 $scope.userinfo.img = response.data;
@@ -40,6 +56,18 @@ project.controller('profileCtrl', function ($scope, services, userdata, $rootSco
             }
         }
     }
+    console.log("prof controller");
+    // dependent dropdowns
 
+    $scope.loadProvinces = function () {
+        console.log($scope.selectedCountry);
+
+        services.req("GET", "frontend/assets/resources/countries/" + $scope.selectedCountry.filename + ".json").then(function (provinces) {
+            $scope.provinces = provinces;
+        });
+    }
+    $scope.changeLocation = function () {
+        $scope.userinfo.location = $scope.selectedProvince.code;
+    }
 
 });
