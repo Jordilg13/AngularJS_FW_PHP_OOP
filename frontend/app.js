@@ -99,13 +99,10 @@ project.config(['$routeProvider', function ($routeProvider) {
             controller: 'profileCtrl',
             resolve: {
                 userdata: function (services) {
-                    return services.req("POST","api/login",{op: "loggeduser"});
+                    return services.req("POST", "api/login", { op: "loggeduser" });
                 }
             }
         })
-
-
-
         .otherwise("/", {
             templateUrl: 'frontend/modules/home/view/home.view.html',
             controller: 'homeCtrl',
@@ -118,25 +115,35 @@ project.config(['$routeProvider', function ($routeProvider) {
 
 }]); // end app.config
 
-project.run(function (services, $rootScope) {
-    
-    $rootScope.$on("$routeChangeSuccess",function(){
+project.run(function (services, $rootScope, toastr) {
+
+    // when the route changes
+    $rootScope.$on("$routeChangeSuccess", function () {
 
         // autodetect logged user
         $rootScope.login_card = {};
         services.req("POST", "api/login", { op: "loggeduser" }).then(function (data) {
-        console.table(data);
-        if (data == "false" || data == '"token expired"') {
-            $rootScope.loggeduser = false;
-        } else {
-            // ng-show
-            $rootScope.loggeduser = true;
-            // user data
-            $rootScope.login_card['username'] = data['data'][0]['username'];
-            $rootScope.login_card['img'] = data['data'][0]['img'];
-        }
+            console.log(data);
 
-    });
+            if (data == '"token expired"') {
+
+                $rootScope.loggeduser = false;
+                location.href = "#/login";
+                toastr.warning("Please log in again.", "Session expired");
+
+            } else if (data == "false") {
+
+                $rootScope.loggeduser = false;
+                
+            } else {
+                // ng-show
+                $rootScope.loggeduser = true;
+                // user data
+                $rootScope.login_card['username'] = data['data'][0]['username'];
+                $rootScope.login_card['img'] = data['data'][0]['img'];
+            }
+
+        });
 
     });
 

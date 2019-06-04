@@ -131,6 +131,7 @@ if ($method == "POST") { // login or register
                 
                 $rres = new stdClass();
                 $rres->token = $_SESSION['logged_user'];
+                LoginFunction::refreshToken($decoded->message);
                 $rres->data = $results;
                 echo json_encode($rres);
 

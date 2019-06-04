@@ -1,5 +1,5 @@
 <?
-	$path = $_SERVER['DOCUMENT_ROOT'] . "/web_framework_php/";
+	$path = $_SERVER['DOCUMENT_ROOT'] . "/angular/backend/";
     define('SITE_ROOT', $path);
     define('MODEL_PATH',SITE_ROOT.'model/');
 

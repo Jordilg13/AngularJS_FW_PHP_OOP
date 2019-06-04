@@ -103,7 +103,7 @@
                                     id="countries" 
                                     ng-options="selectedCountry.name for selectedCountry in countries" 
                                     ng-model="selectedCountry">
-                                    <option ng-value="sel"></option>
+                                    <option value=""></option>
                                 </select>
                             </div> 
 
@@ -118,7 +118,7 @@
                                 ng-disabled="!selectedCountry"
                                 ng-change="changeLocation()"
                                 ng-options="selectedProvince.name for selectedProvince in provinces">
-                                    <option ng-value=""></option>
+                                    <option value=""></option>
                                 </select>
                                     
                             </div>

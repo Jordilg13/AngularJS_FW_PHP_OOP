@@ -1,4 +1,4 @@
-project.controller('profileCtrl', function ($scope, services, userdata, $rootScope) {
+project.controller('profileCtrl', function ($scope, services, userdata, $rootScope,locat,toastr) {
 
     // middleware
     if (userdata == "false") {
@@ -8,29 +8,36 @@ project.controller('profileCtrl', function ($scope, services, userdata, $rootSco
 
         // load location
         services.req("GET", "frontend/assets/resources/countries.json").then(function (countries) {
-            $scope.AllCountries = countries;
+            $scope.countries = countries;
         })
-            .then(function () {
-                if ($scope.userinfo.location.length != 0) {
-                    $scope.AllCountries.forEach(function (value, index, array) {
-                        if (value.code == $scope.userinfo.location.split("-")[0]) {
-                            $scope.sel += value.name;
-                            console.log(value);
+        .then(function () { // PROMISE THEN
+            if ($scope.userinfo.location.length != 0) {
+                // find the user country and set it
+                $scope.countries.forEach(function (value, index, array) {
+                    if (value.code == $scope.userinfo.location.split("-")[0]) {
+                        $scope.selectedCountry = value;
+                    }
+                });
+                // find the user province/state and set it
+                locat.getProvinces($scope.selectedCountry.filename).then(function (provinces) {
+                    $scope.provinces = provinces;
+                    provinces.forEach(function(value, index, array){
+                        if ($scope.userinfo.location == value.code) {
+                            $scope.selectedProvince = value;
                         }
                     });
-                } else {
-                    $scope.countries = $scope.AllCountries;
-                }
-            });
+                });
+            }
+        });
     }
 
     // update profile
     $scope.saveprofile = function () {
         console.log($scope.userinfo);
         services.req("PUT", "api/login/ID--" + $scope.userinfo.ID, { data: $scope.userinfo, op: "profileupdate" }).then(function (data) {
-            console.log(data);
             $rootScope.login_card['username'] = $scope.userinfo.username;
             $rootScope.login_card['img'] = $scope.userinfo.img;
+            toastr.success("Profile updated");
         });
     }
 
@@ -60,9 +67,7 @@ project.controller('profileCtrl', function ($scope, services, userdata, $rootSco
     // dependent dropdowns
 
     $scope.loadProvinces = function () {
-        console.log($scope.selectedCountry);
-
-        services.req("GET", "frontend/assets/resources/countries/" + $scope.selectedCountry.filename + ".json").then(function (provinces) {
+        locat.getProvinces($scope.selectedCountry.filename).then(function (provinces) {
             $scope.provinces = provinces;
         });
     }

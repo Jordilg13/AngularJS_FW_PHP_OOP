@@ -56,13 +56,29 @@ This website is made as a class project. Is an online shop of computers and othe
 | Contact | Contact mails,  |
 | Login | Register, login, logout, JS/PHP validation, JWT, custom img, menu, regenerate tokens, middleware to not logged users |
 | Cart | Saved in database, JS/PHP validation, checkout, increase & decrease, quantity controlled, redirect to details |
-| Framework PHP | dfafsd |
+|
 
-## Todos
+## Framework PHP
+### Summary
+- It's a kind of API that controlls the access to the DDBB.
+### Consists of
+- **FrontController** - Work as a router of the framework and handle all the calls.
+- **ControllerCore** - Main class that build the queries.
+    - **ApiController** - Controlls the actions depending on the type of the call.
+    - **ModelController** - Call the ControllerCore to build the query.
+- **DB and it's Config** - They has the functions to get access to DB.
+
+
+### Features
+- Autoload for the classes of the framework.
+
+
+
+## TODOs
 - [] Improve CSS
 - [] Fix the GMaps incompatibility problems.
 
-## qwfqf
+<!-- ## qwfqf
 
 jwt client - 
 - service
@@ -71,7 +87,7 @@ logout
 jwt server -
 session
 logout
-update
+update -->
 
 
  ## License
