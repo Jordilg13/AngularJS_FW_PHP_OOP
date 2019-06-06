@@ -56,7 +56,7 @@ This website is made as a class project. Is an online shop of computers and othe
 | Contact | Contact mails,  |
 | Login | Register, login, logout, JS/PHP validation, JWT, custom img, menu, regenerate tokens, middleware to not logged users |
 | Cart | Saved in database, JS/PHP validation, checkout, increase & decrease, quantity controlled, redirect to details |
-|
+
 
 ## Framework PHP
 ### Summary

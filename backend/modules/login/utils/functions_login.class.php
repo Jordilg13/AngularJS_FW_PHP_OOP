@@ -130,9 +130,9 @@ class LoginFunction {
         $_SESSION['logged_user']=JWT::encode($payload,$secret_key);
     }
 
-    public static function decodeToken($username) {
+    public static function decodeToken($token) {
         $secret_key = parse_ini_file(_PROJECT_PATH_."/backend/keys/jwt_secret_key.ini")['secretkey'];
-        return JWT::decode($username,$secret_key,array('HS256'));;
+        return JWT::decode($token,$secret_key,array('HS256'));;
     }
 
 

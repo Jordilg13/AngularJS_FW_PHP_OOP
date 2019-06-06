@@ -63,13 +63,11 @@ class ControllerCore{
             }
             $query .= $this->addWhereStatement($data);
         }
-        error_log($query);
+        error_log(print_r($query,1));
         return $query;
     }
     protected function buildPOSTQuery($data){
         // Object: {column_name: "value"} 
-        error_log(print_r("cxvzvzxcvzxcv",1));
-        error_log(print_r($data,1));
         if ($data!="" && is_object($data)){
             $query = 'INSERT INTO '.$this->tableName;
             $rows = ' (';
@@ -105,8 +103,10 @@ class ControllerCore{
         return $query;
     }
     protected function buildDELETEQuery($data){
+        error_log(print_r($data,1));
         $query = 'DELETE FROM '.$this->tableName;
         $query .= $this->addWhereStatement($data);
+        error_log(print_r($query,1));
         return $query;
     }
 }

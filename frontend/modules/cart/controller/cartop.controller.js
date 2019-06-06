@@ -23,11 +23,11 @@ project.controller('cartop', function ($scope,services,toastr,$rootScope) {
         var cant = 1;
         services.req("POST","api/login",{op: "loggeduser"}).then(function(data){
             try { // parse if request doesn't return a parsed object
-                JSON.parse(data);
+                data = JSON.parse(data);
             } catch (error) {}
             
             console.log(data);
-            if (data != "false") {
+            if (data != false) {
 
                 services.req("GET","api/cart/user--"+data.data[0].ID+"/id_prod--"+prod.r.product_code).then(function(reqprod){
                     console.log(reqprod);
@@ -61,7 +61,7 @@ project.controller('cartop', function ($scope,services,toastr,$rootScope) {
                         
                         services.req("PUT","api/cart/user--"+data.data[0].ID+"/id_prod--"+prod.r.product_code,prodata).then(function(putdata){
                             try { // parse if request doesn't return a parsed object
-                                JSON.parse(data);
+                                data = JSON.parse(data);
                             } catch (error) {}
 
                             if (putdata) {

@@ -90,7 +90,33 @@
 
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                 <div class="card-body">
+                    <style>
+                        .lastPurchaseTable td,th{
+                            border: 1px solid black;
+                            padding: 5px;
+                        }
 
+                    </style>
+                    <table class="lastPurchaseTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Product Name</th>
+                                <th>Cant</th>
+                                <th>Total Price</th>
+                            </tr>
+                            <tr ng-repeat="prodl in lastPurchase">
+                                <td>{{prodl.id_purchase}}</td>
+                                <td>{{prodl.product}}</td>
+                                <td>{{prodl.cant}}</td>
+                                <td>{{prodl.totalprice}}</td>
+                            </tr>
+                            
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

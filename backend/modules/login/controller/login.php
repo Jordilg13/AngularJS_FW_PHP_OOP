@@ -197,6 +197,7 @@ elseif ($method == "PUT") {
     $object = new Login();
     include _PROJECT_PATH_.'/backend/model/ApiController.php';
 
+    // change Token->message with new username
     if (isset($_POST['op']) && $_POST['op']="profileupdate") {
         LoginFunction::refreshToken($_POST['data']['username']);
     }

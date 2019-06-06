@@ -107,9 +107,14 @@ project.config(['$routeProvider', function ($routeProvider) {
             templateUrl: 'frontend/modules/cart/view/cart.view.html',
             controller: 'cartCtrl',
             resolve: {
-                usercart: function (services,) {
+                usercart: function (services) {
                     return services.req("POST", "api/login", { op: "loggeduser" }).then(function (userinfo) {
                         return services.req("GET", "api/cart/user--" + userinfo.data[0].ID);
+                    });
+                },
+                previousCart: function(services){
+                    return services.req("POST", "api/login", { op: "loggeduser" }).then(function (userinfo) {
+                        return services.req("POST", "api/cart/user--" + userinfo.data[0].ID,{getPreviousPurchase: true});
                     });
                 }
             }
