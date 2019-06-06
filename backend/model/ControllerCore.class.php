@@ -68,6 +68,8 @@ class ControllerCore{
     }
     protected function buildPOSTQuery($data){
         // Object: {column_name: "value"} 
+        error_log(print_r("cxvzvzxcvzxcv",1));
+        error_log(print_r($data,1));
         if ($data!="" && is_object($data)){
             $query = 'INSERT INTO '.$this->tableName;
             $rows = ' (';

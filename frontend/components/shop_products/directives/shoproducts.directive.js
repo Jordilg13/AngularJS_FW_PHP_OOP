@@ -5,13 +5,13 @@ project.directive('shopproducts', function () {
         services.req("POST", "backend/utils/session/getSession.php", { sessionvar: "home_search_params" }).then(function (data) {
             // data = JSON.parse(data);
             var urltopost = "";
-            console.log(data);
+            // console.log(data);
             if (typeof data == "object") {
                 var urltopost = "";
                 for (const key in data) {
                     urltopost += key + "--" + data[key] + "!/";
                 }
-                console.log(urltopost);
+                // console.log(urltopost);
 
             }
 
@@ -19,7 +19,7 @@ project.directive('shopproducts', function () {
                 // if there is only one product, it redirects the client to the details of the product
                 if (getproducts.length == 1) location.href = "#/shop/" + getproducts[0]['product_code'];
 
-                console.log(getproducts);
+                // console.log(getproducts);
                 $scope.products = getproducts;
                 $scope.numPerPage = 4;
                 $scope.currentPage = 1;
@@ -45,7 +45,7 @@ project.directive('shopproducts', function () {
                     <h4 id='individual_card' name='{{r.product_code}}'>{{r.product_name}}   {{r.price}}€<p id='{{r.product_code}}' class='like'>❤</p></h4>
                 </div>
             </div>
-        </a>
+        </a><button class="btn btn-default" ng-controller="cartop" ng-click="addToCart(this)">Add to cart</button>
         </div></div>
     </div>
     <div id="pager">

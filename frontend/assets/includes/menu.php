@@ -37,8 +37,8 @@
                     <li class="text-white mr-xl-4 mr-2 ml-xl-0 ml-lg-5" ng-show="loggeduser">
                         <div class="logged">
                             <a ng-href="#/logout" id="logout" class="nav-link text-uppercase" data-tr="Logout">Logout</a>
-                            <a id="cart_btn" class="nav-link text-uppercase">
-                                <label class="lbl_num_cart">0</label>
+                            <a id="cart_btn" class="nav-link text-uppercase" ng-href="#/cart">
+                                <label class="lbl_num_cart" ng-controller="cartop">{{cart_num_prod}}</label>
                             </a>
                             <a href="#/profile" class="nav-link text-uppercase" ng-model="login_card.username">{{login_card.username}}</a>
                             <img ng-src="frontend/assets/media/{{login_card.img}}" ng-model="login_card.img" class="img_login">

@@ -59,7 +59,7 @@ project.controller('profileCtrl', function ($scope, services, userdata, $rootSco
                 $scope.userinfo.img = response.data;
             },
             'removedfile': function (file, serverFilename) {
-                delete $scope.userinfo.img;
+                delete $scope.userinfo.img; //deletes the key and the value
             }
         }
     }

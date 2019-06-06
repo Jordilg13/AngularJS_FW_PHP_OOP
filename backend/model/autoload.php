@@ -4,7 +4,7 @@ spl_autoload_extensions('.php,.inc.php,.class.php,.class.singleton.php');
 spl_autoload_register('loadClasses');
 
 function loadClasses($className){
-    error_log($className);
+    error_log("autoloaded class: ".$className);
     // module class
     if (file_exists('modules/'.strtolower($className).'/model/'.$className.'.class.php')) {
         include_once 'modules/'.strtolower($className).'/model/'.$className.'.class.php';

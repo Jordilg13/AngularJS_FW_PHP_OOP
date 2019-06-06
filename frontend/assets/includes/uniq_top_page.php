@@ -1,4 +1,3 @@
-<!-- TODO: llevar els altres top_page -->
 <script>
 		addEventListener("load", function () {
 			setTimeout(hideURLbar, 0);

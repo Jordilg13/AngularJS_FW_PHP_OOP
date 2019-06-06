@@ -29,7 +29,14 @@ switch ($method) {
         }
         break;
     case 'POST':
-        $data=json_decode($_POST['data']);
+        error_log(print_r($_POST,1));
+        if (isset($_POST['data']) && is_array($_POST['data']) ) {
+            $data=(Object) $_POST['data'];
+        } else {
+            $data=json_decode($_POST['data']);
+        }
+        error_log("data--");
+        error_log(print_r($data,1));
         // $data=$_POST['data'];
         $meth = "build".$method."Query";
         $response = $object->request($data,$meth);

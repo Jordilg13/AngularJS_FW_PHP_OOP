@@ -103,6 +103,18 @@ project.config(['$routeProvider', function ($routeProvider) {
                 }
             }
         })
+        .when('/cart', {
+            templateUrl: 'frontend/modules/cart/view/cart.view.html',
+            controller: 'cartCtrl',
+            resolve: {
+                usercart: function (services,) {
+                    return services.req("POST", "api/login", { op: "loggeduser" }).then(function (userinfo) {
+                        return services.req("GET", "api/cart/user--" + userinfo.data[0].ID);
+                    });
+                }
+            }
+
+        })
         .otherwise("/", {
             templateUrl: 'frontend/modules/home/view/home.view.html',
             controller: 'homeCtrl',
@@ -123,7 +135,7 @@ project.run(function (services, $rootScope, toastr) {
         // autodetect logged user
         $rootScope.login_card = {};
         services.req("POST", "api/login", { op: "loggeduser" }).then(function (data) {
-            console.log(data);
+            console.log(data);            
 
             if (data == '"token expired"') {
 
@@ -134,7 +146,7 @@ project.run(function (services, $rootScope, toastr) {
             } else if (data == "false") {
 
                 $rootScope.loggeduser = false;
-                
+
             } else {
                 // ng-show
                 $rootScope.loggeduser = true;

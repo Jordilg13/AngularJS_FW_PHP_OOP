@@ -1,13 +1,9 @@
 <?
 include_once dirname(__FILE__).'/../../../paths.php';
-include _PROJECT_PATH_.'/backend/utils/obj2arr.php';
 include_once _PROJECT_PATH_.'/backend/model/autoload.php';
 include_once _PROJECT_PATH_."/backend/utils/sendemails/sendemail.php";
 include_once _PROJECT_PATH_."/backend/modules/login/utils/functions_login.class.php";
-// require_once(_PROJECT_PATH_.'/backend/lib/JWT/JWT.php');
-// require_once(_PROJECT_PATH_.'/backend/lib/JWT/BeforeValidException.php');
-// require_once(_PROJECT_PATH_.'/backend/lib/JWT/ExpiredException.php');
-// require_once(_PROJECT_PATH_.'/backend/lib/JWT/SignatureInvalidException.php');
+
 
 use Firebase\JWT\JWT;
 
@@ -45,7 +41,7 @@ if ($method == "POST") { // login or register
             include_once _PROJECT_PATH_.'/backend/model/ApiController.php';
             error_log("-l-l-l");
             error_log(print_r($results,1));
-            // TODO: generate new token each logi, remove token field from db
+            // TODO: remove token field from db
             
             // if password match, and the account is enabled
             if (isset($results[0]->password) && password_verify($_POST['data']['password'],$results[0]->password) && $results[0]->enabledAccount == 1) {
