@@ -25,9 +25,9 @@
 
                         <div class="row cart-item" id="%s" ng-repeat="product in cartproducts">
                             <div class="col-5">
-                            <div class="product-overview text-left d-flex"><a class="product-img"><img src="frontend/assets/img/products/{{product.img}}" alt="product" class="img-fluid"></a>
+                            <div class="product-overview text-left d-flex"><a class="product-img" ng-href="#/shop/{{product.id_prod}}"><img src="frontend/assets/img/products/{{product.img}}" alt="product" class="img-fluid"></a>
                                 <div class="product-details">
-                                    <a>
+                                    <a ng-href="#/shop/{{product.id_prod}}">
                                         <h3 class="h4">{{product.id_prod}}</h3>
                                     </a>
                                     <br>

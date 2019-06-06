@@ -3,14 +3,9 @@ project.controller('cartCtrl', function ($scope, usercart, services, toastr, $ro
     $scope.lastPurchase = previousCart;
     console.log("cart ctrl");
     console.log(usercart);
-    console.log(previousCart);
-
-
-    // fill previous purchase
+    console.log(previousCart);        
         
-        
-    // }
-
+    
     $scope.totalprice = 0;
     // $scope.totalprice = parseInt();
     // calculate totalprice of existing products

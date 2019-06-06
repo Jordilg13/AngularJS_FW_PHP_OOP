@@ -19,7 +19,14 @@ project.controller('cartop', function ($scope,services,toastr,$rootScope) {
     
 
     $scope.addToCart = function(prod){
-        console.log(prod.r);
+        try {
+            if (prod.r) {
+                prod = prod.r;
+            }
+        } catch (error) {
+            
+        }
+        
         var cant = 1;
         services.req("POST","api/login",{op: "loggeduser"}).then(function(data){
             try { // parse if request doesn't return a parsed object
@@ -29,16 +36,16 @@ project.controller('cartop', function ($scope,services,toastr,$rootScope) {
             console.log(data);
             if (data != false) {
 
-                services.req("GET","api/cart/user--"+data.data[0].ID+"/id_prod--"+prod.r.product_code).then(function(reqprod){
+                services.req("GET","api/cart/user--"+data.data[0].ID+"/id_prod--"+prod.product_code).then(function(reqprod){
                     console.log(reqprod);
                     if (reqprod.length == 0) {
                         var prodata = {
                             data:{
-                                price: prod.r.price,
+                                price: prod.price,
                                 user: data.data[0].ID,
-                                id_prod: prod.r.product_code,
+                                id_prod: prod.product_code,
                                 cant: cant,
-                                img: prod.r.img        
+                                img: prod.img        
                         }};
                         console.log(prodata);
                         
@@ -52,14 +59,14 @@ project.controller('cartop', function ($scope,services,toastr,$rootScope) {
                         cant = parseInt(reqprod[0].cant)+1;
                         var prodata = {
                             data:{
-                                price: prod.r.price,
+                                price: prod.price,
                                 user: data.data[0].ID,
-                                id_prod: prod.r.product_code,
+                                id_prod: prod.product_code,
                                 cant: cant,
-                                img: prod.r.img        
+                                img: prod.img        
                         }};
                         
-                        services.req("PUT","api/cart/user--"+data.data[0].ID+"/id_prod--"+prod.r.product_code,prodata).then(function(putdata){
+                        services.req("PUT","api/cart/user--"+data.data[0].ID+"/id_prod--"+prod.product_code,prodata).then(function(putdata){
                             try { // parse if request doesn't return a parsed object
                                 data = JSON.parse(data);
                             } catch (error) {}
