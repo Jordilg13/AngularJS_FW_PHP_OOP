@@ -120,6 +120,7 @@ if ($method == "POST") { // login or register
                     $decoded = LoginFunction::decodeToken($_SESSION['logged_user']);
                 } catch (Exception $e) {
                     echo json_encode("token expired");
+                    unset($_SESSION['logged_user']);
                     die();
                 } 
                 $_GET['username']=$decoded->message;
