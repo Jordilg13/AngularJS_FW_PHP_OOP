@@ -1,6 +1,7 @@
-project.controller('cartCtrl', function ($scope, usercart, services, toastr, $rootScope,previousCart) {
+project.controller('cartCtrl', function ($scope, usercart, services, toastr, $rootScope,previousCart, CommonService, $route) {
     $scope.cartproducts = usercart;
-    $scope.lastPurchase = previousCart;
+    $scope.lastPurchase = previousCart; // last purchase table
+    $scope.showLastP = true;
     console.log("cart ctrl");
     console.log(usercart);
     console.log(previousCart);        
@@ -53,14 +54,15 @@ project.controller('cartCtrl', function ($scope, usercart, services, toastr, $ro
         console.log($scope.cartproducts);
         
         services.req("POST", "api/cart", { checkout: true, cart: $scope.cartproducts }).then(function (data) {
-            try { // parse if request doesn't return a parsed object
-                data = JSON.parse(data);
-            } catch (error) {}
+            data = CommonService.tryToParseJSON(data);
+            console.log(data);
             if (data) {
-                toastr.success("Ordered","Congratulations");
-                $scope.cartproducts = {};
+                toastr.success("Purchase made succesfully.","Congratulations");
                 $scope.totalprice = 0;
                 $rootScope.cart_num_prod = 0;
+                $scope.cartproducts = {};
+                $scope.showLastP = false;
+
             } else {
                 toastr.error("Something went wrong","Error");
             }
@@ -68,6 +70,9 @@ project.controller('cartCtrl', function ($scope, usercart, services, toastr, $ro
 
     }
 
+    $scope.reload = function(){
+        $route.reload();
+    }
 
 
 });

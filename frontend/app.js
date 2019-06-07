@@ -120,6 +120,23 @@ project.config(['$routeProvider', function ($routeProvider) {
             }
 
         })
+        .when('/likes', {
+            templateUrl: 'frontend/modules/likes/view/likes.view.html',
+            controller: 'likesCtrl',
+            resolve: {
+                userlikes: function(services) {
+                    return services.req("POST", "api/login", { op: "loggeduser" }).then(function (userinfo) {
+                        console.log(typeof userinfo);
+                        if (typeof userinfo != "string") {
+                            return services.req("GET", "api/likes/user--" + userinfo.data[0].ID);
+                            
+                        }
+                        
+                    });
+                }
+
+            }
+        })
         .otherwise("/", {
             templateUrl: 'frontend/modules/home/view/home.view.html',
             controller: 'homeCtrl',
@@ -132,7 +149,7 @@ project.config(['$routeProvider', function ($routeProvider) {
 
 }]); // end app.config
 
-project.run(function (services, $rootScope, toastr) {
+project.run(function (services, $rootScope, toastr, CommonService) {
 
     // when the route changes
     $rootScope.$on("$routeChangeSuccess", function () {
@@ -140,15 +157,16 @@ project.run(function (services, $rootScope, toastr) {
         // autodetect logged user
         $rootScope.login_card = {};
         services.req("POST", "api/login", { op: "loggeduser" }).then(function (data) {
+            data = CommonService.tryToParseJSON(data);
             console.log(data);            
 
-            if (data == '"token expired"') {
+            if (data == "token expired") {
 
                 $rootScope.loggeduser = false;
-                location.href = "#/login";
+                // location.href = "#/login";
                 toastr.warning("Please log in again.", "Session expired");
 
-            } else if (data == "false") {
+            } else if (data == false) {
 
                 $rootScope.loggeduser = false;
 

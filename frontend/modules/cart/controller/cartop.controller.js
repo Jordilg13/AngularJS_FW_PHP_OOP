@@ -1,8 +1,11 @@
-project.controller('cartop', function ($scope,services,toastr,$rootScope) {
+project.controller('cartop', function ($scope,services,toastr,$rootScope, CommonService) {
     $rootScope.cart_num_prod = 0;
 
     services.req("POST","api/login",{op: "loggeduser"}).then(function(data){
-        if (data != "false") {
+        data = CommonService.tryToParseJSON(data);
+            
+        
+        if (data != false && data != 'token expired') {
             
             services.req("GET", "api/cart/user--" + data.data[0].ID).then(function(usercartload){
                 var actualcant = 0;
@@ -23,15 +26,11 @@ project.controller('cartop', function ($scope,services,toastr,$rootScope) {
             if (prod.r) {
                 prod = prod.r;
             }
-        } catch (error) {
-            
-        }
+        } catch (error) {}
         
         var cant = 1;
         services.req("POST","api/login",{op: "loggeduser"}).then(function(data){
-            try { // parse if request doesn't return a parsed object
-                data = JSON.parse(data);
-            } catch (error) {}
+            data = CommonService.tryToParseJSON(data);
             
             console.log(data);
             if (data != false) {
@@ -67,9 +66,7 @@ project.controller('cartop', function ($scope,services,toastr,$rootScope) {
                         }};
                         
                         services.req("PUT","api/cart/user--"+data.data[0].ID+"/id_prod--"+prod.product_code,prodata).then(function(putdata){
-                            try { // parse if request doesn't return a parsed object
-                                data = JSON.parse(data);
-                            } catch (error) {}
+                            data = CommonService.tryToParseJSON(data);
 
                             if (putdata) {
                                 toastr.success("Item quantity increased succesfully.","Congratulations");
