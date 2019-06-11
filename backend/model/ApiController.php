@@ -6,6 +6,7 @@ switch ($method) {
         $results = [];
         $meth = "build".$method."Query";
         $response = $object->request($data,$meth);
+        error_log(print_r($response,1));
         // $response = $object->$method($data);
         if ($method=='DELETE'){
             if ($response){
@@ -35,11 +36,12 @@ switch ($method) {
         } else {
             $data=json_decode($_POST['data']);
         }
-        // error_log("data--");
-        // error_log(print_r($data,1));
         // $data=$_POST['data'];
         $meth = "build".$method."Query";
         $response = $object->request($data,$meth);
+        error_log("response--");
+        // error_log(print_r($data,1));
+        error_log(print_r($response,1));
         if ($response){
             $results=$response;
         } else {
@@ -58,9 +60,9 @@ switch ($method) {
             error_log(print_r($dataPUT,1));
         }
 
-        error_log(print_r("---",1));
-        error_log(print_r($dataPUT['data'],1));
-        error_log(print_r("---",1));
+        // error_log(print_r("---",1));
+        // error_log(print_r($dataPUT['data'],1));
+        // error_log(print_r("---",1));
         array_push($data,$dataPUT['data']);
        
         $meth = "build".$method."Query";

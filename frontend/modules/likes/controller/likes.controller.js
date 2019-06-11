@@ -1,7 +1,33 @@
-project.controller('likesCtrl', function ($scope,userlikes) {
+project.controller('likesCtrl', function ($scope, userlikes, services, CommonService, toastr, $route) {
+    $scope.therearentlikes = true;
+    $scope.showProd = true;
     console.log("likes controller");
     console.log(userlikes);
-    
-    $scope.products = {};
+    if (userlikes.length > 0) {
+        $scope.therearentlikes = false;
+    }
+    $scope.products = userlikes;
+
+    $scope.removeLike = function (prod) {
+        console.log(prod);
+
+        services.req("POST", "api/login", { op: "loggeduser" }).then(function (userinfo) {
+            services.req("DELETE", "api/likes/user_l--" + userinfo.data[0].ID + "/product_code--" + prod.product_code).then(function (data) {
+                data = CommonService.tryToParseJSON(data);
+                if (data) {
+                    toastr.success("Product removed from favorites");
+                    $route.reload();
+                } else {
+                    toastr.error("We can't remove your product from favorites, please try again.")
+                }
+            });
+        })
+    }
+
+    $scope.removeAll = function(){
+        services.req("DELETE", "api/likes/").then(function(){
+            
+        });
+    }
 
 })

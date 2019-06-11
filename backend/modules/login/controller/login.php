@@ -133,6 +133,7 @@ if ($method == "POST") { // login or register
                 echo json_encode($rres);
 
             } else {
+                error_log(print_r("user not logged",1));
                 echo json_encode(false);
             }
             break;

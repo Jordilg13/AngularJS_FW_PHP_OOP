@@ -13,6 +13,7 @@ project.factory("services", ['$http','$q', function ($http, $q) {
           }).success(function(data, status, headers, config) {
              defered.resolve(data);
           }).error(function(data, status, headers, config) {
+              console.log(status);
              defered.reject(data);
           });
         return promise;

@@ -82,7 +82,8 @@
             <span id="price" ng-bind="product.price + ' €'"></span>
             <a class="cart-btn" ng-controller="cartop" ng-click="addToCart(product)">Add to cart</a>
             &nbsp&nbsp&nbsp&nbsp&nbsp
-            <a class="btn btn-default btn-lg like" id="">❤</a>
+            <!-- <a class="btn btn-default btn-lg like" id="">❤</a> -->
+            <button ng-controller="likesop" ng-class="classLikeBtn" ng-model="likebtn" elem-ready="checkLike(product)" ng-click="addLike(product)">❤</button>
           </div>
         </div>
       </div>

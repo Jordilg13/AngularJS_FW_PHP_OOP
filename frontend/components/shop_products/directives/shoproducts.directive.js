@@ -42,10 +42,11 @@ project.directive('shopproducts', function () {
             <div class='view view-fifth'>
                 <i class='fas fa-home'></i>
                 <div class='mask'>
-                    <h4 id='individual_card' name='{{r.product_code}}'>{{r.product_name}}   {{r.price}}€<p id='{{r.product_code}}' class='like'>❤</p></h4>
+                    <h4 id='individual_card' name='{{r.product_code}}'>{{r.product_name}}   {{r.price}}€</h4>
                 </div>
             </div>
         </a><button class="btn btn-default" ng-controller="cartop" ng-click="addToCart(this)">Add to cart</button>
+        <button ng-controller="likesop" ng-class="classLikeBtn" ng-model="likebtn" elem-ready="checkLike(r)" ng-click="addLike(this)">❤</button>
         </div></div>
     </div>
     <div id="pager">

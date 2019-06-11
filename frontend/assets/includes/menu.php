@@ -19,17 +19,17 @@
                 <li>
                     <a class="nav-link text-uppercase" id="home_button" href="#/" data-tr="Homepage">Homepage</a>
                 </li>
-                <li>
+                <!-- <li>
                     <a class="nav-link text-uppercase" id="products_crud" href="products_crud" data-tr="Products">Products</a>
-                </li>
-                <li>
-                    <a class="nav-link text-uppercase" id="contactus" href="#/contactus" data-tr="Contact Us">Contact Us</a>
-                <li>
-                    <a class="nav-link text-uppercase" id="likes_controller" href="#/likes" data-tr="Likes">Likes</a>
-                </li>
-                <li>
-                    <a class="nav-link text-uppercase" id="shop_controller" href="#/shop" data-tr="Shop">Shop</a>
-                </li>
+                </li> -->
+                <a class="nav-link text-uppercase" ng-show="loggeduser" id="likes_controller" href="#/likes" data-tr="Likes">Likes</a>
+            </li>
+            <li>
+                <a class="nav-link text-uppercase" id="shop_controller" href="#/shop" data-tr="Shop">Shop</a>
+            </li>
+            <li>
+                <a class="nav-link text-uppercase" id="contactus" href="#/contactus" data-tr="Contact Us">Contact Us</a>
+            <li>
             </ul>
             <div class="top-info text-lg-right text-center mt-lg-0 mt-3">
                 <ul class="navbar-nav mx-xl-auto">

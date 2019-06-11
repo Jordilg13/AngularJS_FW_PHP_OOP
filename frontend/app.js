@@ -124,12 +124,15 @@ project.config(['$routeProvider', function ($routeProvider) {
             templateUrl: 'frontend/modules/likes/view/likes.view.html',
             controller: 'likesCtrl',
             resolve: {
-                userlikes: function(services) {
+                userlikes: function(services, CommonService,toastr) {
                     return services.req("POST", "api/login", { op: "loggeduser" }).then(function (userinfo) {
+                        userinfo =  CommonService.tryToParseJSON(userinfo);
                         console.log(typeof userinfo);
-                        if (typeof userinfo != "string") {
-                            return services.req("GET", "api/likes/user--" + userinfo.data[0].ID);
-                            
+                        if (typeof userinfo == "object" && userinfo != "token expired") {
+                            return services.req("GET", "api/likes/user_l--" + userinfo.data[0].ID);
+                        } else {
+                            toastr.error("You must be logged to access likes.","Error");
+                            location.href = "#/login";
                         }
                         
                     });
