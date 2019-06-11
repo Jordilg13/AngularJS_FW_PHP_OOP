@@ -1,16 +1,16 @@
 
 <div class="container">
         <div class="card-columns">
+            <button class="btn btn-danger" ng-show="!therearentlikes" ng-click="removeAll()">Remove All</button>
             <br>
             <h1 ng-show="therearentlikes">
                 You haven't any favorite product. 
                 You can add some products in from shop.
             </h1>  
             <br>
-            <div ng-show="!therearentlikes" class="card mb-4 " ng-repeat="prod in products">
-                <div class="view overlay">
+            <div ng-show="!therearentlikes" class="card mb-4 " ng-repeat="prod in products" >
+                <a class="view overlay" href="#/shop/{{prod.product_code}}">
                     <img class="card-img-top" src="frontend/assets/img/products/laptop2.jpg" alt="Card image cap">
-                    <a href="#!">
                         <div class="mask rgba-white-slight waves-effect waves-light">
                             <div class="waves-ripple waves-rippling" data-hold="1559841656915" data-x="87.86669921875"
                                 data-y="275.4499969482422" data-scale="scale(10.44)" data-translate="translate(0,0)"
@@ -18,7 +18,6 @@
                             </div>
                         </div>
                     </a>
-                </div>
                 <div class="card-body p-3">
                     <h5 class="card-title font-weight-bold fuchsia-rose-text mb-0">{{prod.product_code}}</h5>
                     <p class="aqua-sky-text mb-0">Generation Funk</p>

@@ -37,10 +37,10 @@ This website is made as a class project. Is an online shop of computers and othe
 * [Toastr] - Notification system.
 * [Dropzone] - Used in profile.
 
-[Toastr]: <http://mailgun.com>
+[Toastr]: <https://github.com/Foxandxss/angular-toastr>
 [Bootstrap]: <https://getbootstrap.com/>
-[JWT]: <http://mailgun.com>
-[Dropzone]: <http://mailgun.com>
+[JWT]: <https://jwt.io/>
+[Dropzone]: <https://github.com/thatisuday/ng-dropzone>
 
 ### Services
 * [Mailgun] - Used in mail system.
@@ -52,10 +52,10 @@ This website is made as a class project. Is an online shop of computers and othe
 | Home | Filter Search with redirect to shop, list popular products with pagination, likes, add to cart, autoredirect to details |
 | Shop | List with pagination, details, likes, add to cart |
 | Products view | Product information, add to cart, likes  |
-| Likes | User Likes, middleware to not logged users |
+| Likes | User Likes, middleware to not logged users, working in all application |
 | Contact | Contact mails |
 | Login | Register, login, logout, JS/PHP validation, JWT, custom img, menu, regenerate tokens, middleware to not logged users |
-| Cart | Saved in database, JS/PHP validation, checkout, increase & decrease, quantity controlled, redirect to details, history of purchases, working in all application |
+| Cart | Stored in database, JS/PHP validation, checkout, increase & decrease, quantity controlled, redirect to details, shows last purchase, working in all application |
 
 
 ## Framework PHP

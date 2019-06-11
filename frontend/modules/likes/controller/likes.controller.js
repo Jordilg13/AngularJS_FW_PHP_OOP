@@ -25,8 +25,17 @@ project.controller('likesCtrl', function ($scope, userlikes, services, CommonSer
     }
 
     $scope.removeAll = function(){
-        services.req("DELETE", "api/likes/").then(function(){
-            
+        services.req("POST", "api/login", { op: "loggeduser" }).then(function (userinfo) {
+            services.req("DELETE", "api/likes/user_l--"+ userinfo.data[0].ID).then(function(data){
+                data = CommonService.tryToParseJSON(data);
+                
+                if (data) {
+                    toastr.success("All products removed");
+                    $route.reload();
+                } else {
+                    toastr.error("We can't remove your products from favorites, please try again.")
+                }
+            });
         });
     }
 

@@ -74,5 +74,21 @@ project.controller('cartCtrl', function ($scope, usercart, services, toastr, $ro
         $route.reload();
     }
 
+    $scope.clearCart = function(){
+        services.req("POST", "api/login", { op: "loggeduser" }).then(function (userinfo) {
+            services.req("DELETE", "api/cart/user--"+ userinfo.data[0].ID).then(function(data){
+                data = CommonService.tryToParseJSON(data);
+                
+                if (data) {
+                    toastr.success("All products removed");
+                    $rootScope.cart_num_prod = 0;
+                    $route.reload();
+                } else {
+                    toastr.error("We can't clear your cart, please try again.")
+                }
+            });
+        });
+    }
+
 
 });
