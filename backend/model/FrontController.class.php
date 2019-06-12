@@ -24,7 +24,9 @@ class FrontController {
             'login',
             'products_crud',
             'profile',
-            'services'
+            'services',
+            "auth0",
+            "auth0callback",
         );
         return $allowedPages;
     }

@@ -67,17 +67,17 @@ project.config(['$routeProvider', function ($routeProvider) {
             }
         })
 
-        .when('/logout', {
+        .when('/logout', {  // logout from normal and social login
             resolve: {
                 logout: function (services, toastr, $rootScope) {
                     return services.req("DELETE", "api/login").then(function (data) {
                         data = JSON.parse(data);
-                        if (data) {
-                            toastr.success("Logged out");
-                        } else {
-                            toastr.error("Something went wrong", "Error");
-                        }
-                        location.href = "#/";
+                        if (!data) toastr.error("Something went wrong", "Error");
+                        
+                        services.req("DELETE","api/auth0").then(function(data){
+                            console.log(data);
+                            window.location.href=data;
+                        });
                         $rootScope.loggeduser = false;
                     });
                 }

@@ -51,19 +51,7 @@ if ($method == "POST") { // login or register
                 array_push($returndata,$results);
                 error_log($_SESSION['logged_user']);
                 error_log(print_r($returndata,1));
-
-                // check if token is wrong
-                // try {
-                //     $decoded = JWT::decode($results[0]->token,$secret_key,array('HS256'));
-                // } catch (Exception $e) {
-                //     echo json_encode("token expired");
-                //     die();
-                // }
-                // // check if token matches with the user
-                // if ($decoded->message != $results[0]->username) {
-                //     error_log("token doesnt match");
-                //     echo json_encode("token doesnt match");
-                // }  
+                
             } else {
                 error_log("asdf");
                 array_push($returndata,false);

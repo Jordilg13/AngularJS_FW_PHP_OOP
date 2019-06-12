@@ -42,11 +42,14 @@ project.controller('likesop', function ($scope,services, CommonService,toastr) {
     $scope.checkLike = function(prod) {
         console.log(prod);
         services.req("POST", "api/login", { op: "loggeduser" }).then(function (userinfo) {
-            services.req("GET","api/likes/user_l--"+userinfo.data[0].ID+"/product_code--"+prod.product_code).then(function(data){
-                if (data.length > 0) {
-                    $scope.classLikeBtn = "btn btn-danger";
-                }
-            });
+            userinfo = CommonService.tryToParseJSON(userinfo);
+            if (userinfo) {
+                services.req("GET","api/likes/user_l--"+userinfo.data[0].ID+"/product_code--"+prod.product_code).then(function(data){
+                    if (data.length > 0) {
+                        $scope.classLikeBtn = "btn btn-danger";
+                    }
+                });
+            }
         });
         
         

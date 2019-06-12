@@ -98,7 +98,7 @@
 
 <!-- likes -->
     <!-- jqwidgets -->
-	<link rel="stylesheet" href="frontend/assets/js/jqwidgets/jqwidgets/styles/jqx.metro.css" type="text/css" />
+	<!-- <link rel="stylesheet" href="frontend/assets/js/jqwidgets/jqwidgets/styles/jqx.metro.css" type="text/css" />
 	<link rel="stylesheet" href="frontend/assets/js/jqwidgets/jqwidgets/styles/jqx.base.css" type="text/css" />
 	<script type="text/javascript" src="frontend/assets/js/jqwidgets/jqwidgets/jqxcore.js"></script>
     <script type="text/javascript" src="frontend/assets/js/jqwidgets/jqwidgets/jqxbuttons.js"></script>
@@ -108,7 +108,10 @@
     <script type="text/javascript" src="frontend/assets/js/jqwidgets/jqwidgets/jqxcheckbox.js"></script>
     <script type="text/javascript" src="frontend/assets/js/jqwidgets/jqwidgets/jqxlistbox.js"></script>
     <script type="text/javascript" src="frontend/assets/js/jqwidgets/jqwidgets/jqxdropdownlist.js"></script>
-    <script type="text/javascript" src="frontend/assets/js/jqwidgets/scripts/demos.js"></script>
+    <script type="text/javascript" src="frontend/assets/js/jqwidgets/scripts/demos.js"></script> -->
+
+
+	<script src="https://cdn.auth0.com/js/auth0/9.10/auth0.min.js"></script>
 
 
 
