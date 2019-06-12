@@ -44,8 +44,10 @@ This website is made as a class project. Is an online shop of computers and othe
 
 ### Services
 * [Mailgun] - Used in mail system.
+* [Auth0] - Authentication & authorization platform.
 
 [Mailgun]: <http://mailgun.com>
+[Auth0]:   <https://auth0.com/>
 ## Modules
 | Page | Features |
 | -| - |
@@ -54,7 +56,7 @@ This website is made as a class project. Is an online shop of computers and othe
 | Products view | Product information, add to cart, likes  |
 | Likes | User Likes, middleware to not logged users, working in all application |
 | Contact | Contact mails |
-| Login | Register, login, logout, JS/PHP validation, JWT, custom img, menu, regenerate tokens, middleware to not logged users |
+| Login | Register, login, logout, JS/PHP validation, JWT, custom img, menu, regenerate tokens, middleware to not logged users, Auth0 login with Github and Google |
 | Cart | Stored in database, JS/PHP validation, checkout, increase & decrease, quantity controlled, redirect to details, shows last purchase, working in all application |
 
 
