@@ -1,4 +1,5 @@
 <?
+// acts as a routing for the "api"
 class FrontController {
     static $_instance;
 
@@ -41,8 +42,8 @@ class FrontController {
 
         $_POST = json_decode(file_get_contents('php://input'),true); // true makes it parse as an array
         
-        if (isset($cutUrl[2]) && $cutUrl[2]=='api') {
-            if (in_array($cutUrl[3],$allowedPages)){
+        if (isset($cutUrl[2]) && $cutUrl[2]=='api') { // if is a request for the api
+            if (in_array($cutUrl[3],$allowedPages)){ // if the page is allowed
                 $getParams=array_slice($cutUrl,4);
                 foreach ($getParams as $getParam){
                     $params = explode('--',$getParam);

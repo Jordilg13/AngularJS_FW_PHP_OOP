@@ -5,9 +5,6 @@ project.controller('loginCtrl', function (services, toastr, $scope, $rootScope, 
 
   $scope.login = function () {
     services.req("POST", "api/login/username--" + $scope.logindata['username'], { op: "login", data: $scope.logindata }).then(function (data) {
-      // data = JSON.parse(data);
-      // TODO: netejar codi
-      console.log(data);
       if (data[0]) {
         toastr.success("You are now logged.", "Logged In");
         location.href = "#/";

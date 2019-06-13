@@ -1,4 +1,5 @@
 <?
+// this handle the operations depending of the request type
 switch ($method) {
     case 'GET':
     case 'DELETE':
@@ -6,8 +7,7 @@ switch ($method) {
         $results = [];
         $meth = "build".$method."Query";
         $response = $object->request($data,$meth);
-        error_log(print_r($response,1));
-        // $response = $object->$method($data);
+
         if ($method=='DELETE'){
             if ($response){
                 $results=$response;
@@ -30,18 +30,13 @@ switch ($method) {
         }
         break;
     case 'POST':
-        // error_log(print_r($_POST,1));
         if (isset($_POST['data']) && is_array($_POST['data']) ) {
             $data=(Object) $_POST['data'];
         } else {
             $data=json_decode($_POST['data']);
         }
-        // $data=$_POST['data'];
         $meth = "build".$method."Query";
         $response = $object->request($data,$meth);
-        error_log("response--");
-        // error_log(print_r($data,1));
-        error_log(print_r($response,1));
         if ($response){
             $results=$response;
         } else {
@@ -57,12 +52,8 @@ switch ($method) {
             $dataPUT = $_POST;
         } else {
             $dataPUT = json_decode(file_get_contents('php://input'),true); 
-            error_log(print_r($dataPUT,1));
         }
 
-        // error_log(print_r("---",1));
-        // error_log(print_r($dataPUT['data'],1));
-        // error_log(print_r("---",1));
         array_push($data,$dataPUT['data']);
        
         $meth = "build".$method."Query";

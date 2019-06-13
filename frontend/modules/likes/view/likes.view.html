@@ -1,12 +1,12 @@
 
 <div class="container">
+    <h1 ng-show="therearentlikes">
+        You haven't any favorite product. 
+        You can add some products in from shop.
+    </h1>  
         <div class="card-columns">
             <button class="btn btn-danger" ng-show="!therearentlikes" ng-click="removeAll()">Remove All</button>
             <br>
-            <h1 ng-show="therearentlikes">
-                You haven't any favorite product. 
-                You can add some products in from shop.
-            </h1>  
             <br>
             <div ng-show="!therearentlikes" class="card mb-4 " ng-repeat="prod in products" >
                 <a class="view overlay" href="#/shop/{{prod.product_code}}">

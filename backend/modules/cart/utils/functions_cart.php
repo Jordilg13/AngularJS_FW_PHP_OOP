@@ -1,6 +1,7 @@
 <?php
 
-function getLastPurchase($purchases) {
+// get the id of the last puchase of the user
+function getLastPurchase($purchases) { 
     $ret = 0;
     if (count($purchases) != 0) {
         $ids = [];
@@ -12,12 +13,12 @@ function getLastPurchase($purchases) {
     return $ret;
 }
 
-function createPurchaseObject($cart,$id) {
+// gets the price of products from db not from the given data by the client
+function createPurchaseObject($cart,$id) { 
     $checkout = [];
-    error_log(print_r("aaaaaaaaaaaaaa",1));
     for ($i=0; $i < count($cart); $i++) {
         $method = "GET";
-        $object = new Cart("products");
+        $object = new ModelController("products");
         $_GET = [];
         $_GET['product_code'] = $cart[$i]['id_prod'];
         include _PROJECT_PATH_.'/backend/model/ApiController.php';

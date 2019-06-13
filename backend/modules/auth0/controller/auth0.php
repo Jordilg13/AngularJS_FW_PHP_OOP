@@ -17,15 +17,21 @@ $auth0 = new Auth0([
   'persist_refresh_token' => true,
 ]);
 
-if ($_SERVER['REQUEST_METHOD']=='GET'){
+if ($_SERVER['REQUEST_METHOD']=='GET'){  // login
+
   $auth0->login();
-} else if ($_SERVER['REQUEST_METHOD']=='DELETE'){
+
+} else if ($_SERVER['REQUEST_METHOD']=='DELETE'){  // logout
+
   $auth0->logout();
   session_destroy();
   $auth0_auth_api = new Authentication('jordilg13.eu.auth0.com');
+
   $auth0_logout_url = $auth0_auth_api->get_logout_link(
     'http://localhost/angular',
     'U93JEn4L9puus9oEMMdXtGWlbZprPbyJ'
   );
+
   echo $auth0_logout_url;
+
 }

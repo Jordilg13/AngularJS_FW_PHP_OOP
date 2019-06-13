@@ -8,7 +8,6 @@ project.controller('cartCtrl', function ($scope, usercart, services, toastr, $ro
         
     
     $scope.totalprice = 0;
-    // $scope.totalprice = parseInt();
     // calculate totalprice of existing products
     for (let i = 0; i < $scope.cartproducts.length; i++) {
         console.log($scope.cartproducts[i]);

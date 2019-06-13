@@ -51,7 +51,7 @@ if ($method == "POST") { // login or register
             break;
     }
 } elseif ($method == "GET") { // normal get
-    $object = new Login();
+    $object = new ModelController("users");
     include_once _PROJECT_PATH_.'/backend/model/ApiController.php';
     echo json_encode($results);
 
@@ -65,7 +65,7 @@ if ($method == "POST") { // login or register
 
 } 
 elseif ($method == "PUT") {
-    $object = new Login();
+    $object = new ModelController("users");
     include _PROJECT_PATH_.'/backend/model/ApiController.php';
 
     if (isset($_POST['op']) && $_POST['op']="profileupdate") {

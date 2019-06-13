@@ -10,7 +10,7 @@ use Firebase\JWT\JWT;
 class LoginFunction {
     public static function login() {
         $method="GET"; //changed to get because i want to do a select, not an insert
-        $object = new Login();
+        $object = new ModelController("users");
         $returndata = [];
         include_once _PROJECT_PATH_.'/backend/model/ApiController.php';
         error_log("-l-l-l");
@@ -35,7 +35,7 @@ class LoginFunction {
 
     public static function register() {
         $method="GET"; //changed to get because i want to do a select, not an insert
-        $object = new Login();
+        $object = new ModelController("users");
         
         // check if user is already registred
         $_GET['username'] = $_POST['data']['username'];
@@ -76,7 +76,7 @@ class LoginFunction {
     public static function getLoggedUser() {
         if (isset($_SESSION['logged_user'])) {
             $method = "GET";
-            $object = new Login();
+            $object = new ModelController("users");
 
             try { // checking if token is correct
                 $decoded = LoginFunction::decodeToken($_SESSION['logged_user']);
@@ -100,7 +100,7 @@ class LoginFunction {
         }
     }
     public static function enableaccount() {
-        $object = new Login();
+        $object = new ModelController("users");
         $method="GET";
         $results=false;
 
@@ -127,7 +127,7 @@ class LoginFunction {
         }
     }
     public static function changePass(){
-        $object = new Login();
+        $object = new ModelController("users");
         $method="PUT";
         $password = $_POST['pass'];
 

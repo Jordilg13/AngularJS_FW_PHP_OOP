@@ -1,5 +1,7 @@
 <?
 include_once _PROJECT_PATH_.'/backend/model/db.class.singleton.php';
+
+// ControllerCore generates the queries depending on the given parameters
 class ControllerCore{
     // LIMIT must go first of all
     // COUNT mustn't be last

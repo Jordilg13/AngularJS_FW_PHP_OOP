@@ -1,6 +1,5 @@
 <?php
 include_once dirname(__FILE__).'/../../../../backend/paths.php';
-// include_once _PROJECT_PATH_.'/backend/modules/login/model/Login.class.php';
 include_once _PROJECT_PATH_.'/backend/model/autoload.php';
 include_once _PROJECT_PATH_.'/vendor/autoload.php';
 include_once _PROJECT_PATH_."/backend/modules/login/utils/functions_login.class.php";
@@ -21,11 +20,9 @@ $auth0 = new Auth0([
   ]);
 
 $userInfo=$auth0->getUser();
-error_log(print_r($userInfo,1));
 
-
-
-// registering user
+// BEHAVIOR: the first time that a social user joins the app, is registred as a social user, if it's already in db, it's logged as usually
+// TODO: change this behavior, when the user is registred, his data wont be changed even if he changes any information, for example his picture
 
 $method="GET";
 $object = ModelController::getInstance("users");
@@ -33,8 +30,6 @@ $object = ModelController::getInstance("users");
 // check if user is already registred
 $_GET = [];
 $_GET['username'] = $userInfo['nickname'];
-error_log(print_r("get",1));
-error_log(print_r($_GET,1));
 include _PROJECT_PATH_.'/backend/model/ApiController.php';
 
 if (empty($results)) { //register social
@@ -48,9 +43,6 @@ if (empty($results)) { //register social
     $_POST['data']=json_encode($_POST['data']);
 
     include _PROJECT_PATH_.'/backend/model/ApiController.php';
-
-    error_log(print_r($results,1));
-    error_log(print_r("asdf",1));
 
     if ($results == 1) {
         $_SESSION['logged_user'] = LoginFunction::refreshToken($userInfo['nickname']);

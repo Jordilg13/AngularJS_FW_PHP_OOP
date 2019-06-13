@@ -8,9 +8,6 @@ class ModelController extends ControllerCore{
             $this->tableName = $tabn;
         }
     }
-    
-    // protected function __construct(){
-    // }
 
     public function request($data, $func){
         // debug($data);
@@ -18,6 +15,7 @@ class ModelController extends ControllerCore{
         return $this->runQuery($query);
     }
 
+    // i stoped using this when creating the classes, because each ModelController should has a different table name
     public static function getInstance($table) {
         if (!(self::$_instance instanceof self))
             self::$_instance = new self($table);
