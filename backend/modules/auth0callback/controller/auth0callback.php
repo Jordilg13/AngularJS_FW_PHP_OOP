@@ -1,7 +1,7 @@
 <?php
 include_once dirname(__FILE__).'/../../../../backend/paths.php';
 include_once _PROJECT_PATH_.'/backend/model/autoload.php';
-include_once _PROJECT_PATH_.'/vendor/autoload.php';
+include_once _PROJECT_PATH_.'/backend/vendor/autoload.php';
 include_once _PROJECT_PATH_."/backend/modules/login/utils/functions_login.class.php";
 
 use Auth0\SDK\Auth0;

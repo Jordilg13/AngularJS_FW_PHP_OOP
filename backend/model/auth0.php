@@ -1,5 +1,5 @@
 <?php
-include_once dirname(__FILE__).'/../../../../vendor/autoload.php';
+include_once dirname(__FILE__).'/../../../../backend/vendor/autoload.php';
 
 use Auth0\SDK\Auth0;
 
