@@ -1,8 +1,8 @@
 project.controller('likesCtrl', function ($scope, userlikes, services, CommonService, toastr, $route) {
     $scope.therearentlikes = true;
     $scope.showProd = true;
-    console.log("likes controller");
-    console.log(userlikes);
+
+    // if the user hasn't likes, 
     if (userlikes.length > 0) {
         $scope.therearentlikes = false;
     }

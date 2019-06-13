@@ -1,6 +1,10 @@
 <?php
-
-// get the id of the last puchase of the user
+/**
+ * get the id of the last puchase of the user
+ *
+ * @param array $purchases
+ * @return int
+ */
 function getLastPurchase($purchases) { 
     $ret = 0;
     if (count($purchases) != 0) {
@@ -13,7 +17,13 @@ function getLastPurchase($purchases) {
     return $ret;
 }
 
-// gets the price of products from db not from the given data by the client
+/**
+ * gets the price of products from db not from the given data by the client
+ *
+ * @param array $cart
+ * @param int $id
+ * @return stdClass
+ */
 function createPurchaseObject($cart,$id) { 
     $checkout = [];
     for ($i=0; $i < count($cart); $i++) {

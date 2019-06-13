@@ -8,14 +8,24 @@ class FrontController {
         $this->run();
     }
 
+    /**
+     * create an instance of the classe only if it doesn't exists
+     *
+     * @return self
+     */
     public static function getInstance() {
         if (!(self::$_instance instanceof self))
             self::$_instance = new self();
         return self::$_instance;
     }
 
+    /**
+     * returns an array of the allowed pages
+     *
+     * @return array
+     */
     private function getAllowedPages(){
-        $allowedPages=array(
+        return array(
             'aboutus',
             'cart',
             'contactus',
@@ -29,9 +39,21 @@ class FrontController {
             "auth0",
             "auth0callback",
         );
-        return $allowedPages;
     }
 
+    /**
+     * handles the api requests and convert the pretty urls into parameters
+     * 
+     * "localhost/angular/api/users/user--ethan". Here the parameters will be extracted into $_GET['user']="ethan" 
+     *  and redirected to the users controller
+     * 
+     * the parameters are separated by --  (.../key--value)
+     * 
+     * @example LIMIT limit must be the first parameter in URL .../api/products/limit--3
+     * @example COUNT must be the first parameter in the URL .../api/products/count--1/family--tech(the number must be here but won't be used)
+     *
+     * @return void
+     */
     public function run(){
         include_once dirname(__FILE__).'/../paths.php';
 

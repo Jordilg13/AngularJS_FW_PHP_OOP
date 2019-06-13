@@ -8,13 +8,16 @@ require_once(_PROJECT_PATH_.'/backend/lib/JWT/SignatureInvalidException.php');
 use Firebase\JWT\JWT;
 
 class LoginFunction {
+    /**
+     * login of a normal user
+     *
+     * @return void
+     */
     public static function login() {
         $method="GET"; //changed to get because i want to do a select, not an insert
         $object = new ModelController("users");
         $returndata = [];
         include_once _PROJECT_PATH_.'/backend/model/ApiController.php';
-        error_log("-l-l-l");
-        error_log(print_r($results,1));
         
         // if password match, and the account is enabled
         if (isset($results[0]->password) && password_verify($_POST['data']['password'],$results[0]->password) && $results[0]->enabledAccount == 1) {
@@ -22,17 +25,18 @@ class LoginFunction {
 
             array_push($returndata,true);
             array_push($returndata,$results);
-            error_log($_SESSION['logged_user']);
-            error_log(print_r($returndata,1));
             
         } else {
-            error_log("asdf");
             array_push($returndata,false);
         }   
-        error_log(json_encode($returndata));     
         echo json_encode($returndata,JSON_FORCE_OBJECT);
     }
 
+    /**
+     * register of a normal user
+     *
+     * @return void
+     */
     public static function register() {
         $method="GET"; //changed to get because i want to do a select, not an insert
         $object = new ModelController("users");
@@ -40,23 +44,17 @@ class LoginFunction {
         // check if user is already registred
         $_GET['username'] = $_POST['data']['username'];
         $emaildata["username"] = $_POST['data']['username'];
-        error_log(print_r($_GET,1));
         include _PROJECT_PATH_.'/backend/model/ApiController.php';
 
         if (empty($results)) {
 
             $method="POST"; // changed to post to do the insert
             $_POST['data']['password']=password_hash($_POST['data']['password'],PASSWORD_BCRYPT);
-            error_log("data--");
             $_POST['data']['token'] = LoginFunction::refreshToken($_POST['data']['username']);
-            error_log(print_r($_POST['data'],1));
             $emaildata["token"]= $_POST['data']['token'];
             $_POST['data']=json_encode($_POST['data']);
 
             include _PROJECT_PATH_.'/backend/model/ApiController.php';
-
-            error_log(print_r($results,1));
-            error_log(print_r("asdf",1));
 
             if ($results == 1) {
 
@@ -73,6 +71,13 @@ class LoginFunction {
         }
     }
 
+    /**
+     * return the token of the logged user, and the information of that user
+     * each time that this function is called, the JWT of the user is refreshed
+     * expire time controlled
+     *
+     * @return void
+     */
     public static function getLoggedUser() {
         if (isset($_SESSION['logged_user'])) {
             $method = "GET";
@@ -95,10 +100,15 @@ class LoginFunction {
             echo json_encode($rres);
 
         } else {
-            error_log(print_r("user not logged",1));
             echo json_encode(false);
         }
     }
+
+    /**
+     * enable the account if the user exists
+     *
+     * @return void
+     */
     public static function enableaccount() {
         $object = new ModelController("users");
         $method="GET";
@@ -118,6 +128,11 @@ class LoginFunction {
         }
     }
 
+    /**
+     * close session of the logged user
+     *
+     * @return void
+     */
     public static function logout() {
         unset($_SESSION['logged_user']);
         if (isset($_SESSION['logged_user'])) {
@@ -126,35 +141,55 @@ class LoginFunction {
             echo json_encode(true);
         }
     }
+
+    /**
+     * change the pass of the user
+     *
+     * @return void
+     */
     public static function changePass(){
         $object = new ModelController("users");
         $method="PUT";
         $password = $_POST['pass'];
-
         $_POST =[];
         $_POST['fromphp']=true;
-
-
         $_POST['data']['password']=password_hash($password,PASSWORD_BCRYPT);
-        error_log(print_r($_POST,1));
 
         include _PROJECT_PATH_.'/backend/model/ApiController.php';
         echo json_encode($results);
     }
+
+    /**
+     * sends the email to recover your password
+     *
+     * @return void
+     */
     public static function recoverPassword() {
         $json = send_mailgun($_POST['email'],"Recover Password","Click <a href='http://localhost/angular/#/recoverPassword/".$_POST['token']."'>here</a> to recover your password.");
         echo json_encode($json);
     }
 
+    /**
+     * refreshes the JWT
+     *
+     * @param string $username
+     * @return string
+     */
     public static function refreshToken($username) {
         $secret_key = parse_ini_file(_PROJECT_PATH_."/backend/keys/jwt_secret_key.ini")['secretkey'];
         $payload = array(
             "message" => $username,
-            "exp" => time() + (60*30)
+            "exp" => time() + (60*30) // 30min
         ); 
         return JWT::encode($payload,$secret_key);
     }
 
+    /**
+     * returns the JWT info decoded
+     *
+     * @param string $token
+     * @return string
+     */
     public static function decodeToken($token) {
         $secret_key = parse_ini_file(_PROJECT_PATH_."/backend/keys/jwt_secret_key.ini")['secretkey'];
         return JWT::decode($token,$secret_key,array('HS256'));;

@@ -6,6 +6,12 @@ class ControllerCore{
     // LIMIT must go first of all
     // COUNT mustn't be last
 
+    /**
+     * adds a where statement to the actual query
+     *
+     * @param array $array
+     * @return string
+     */
     private function addWhereStatement($array){
         $conditions=count($array);
         $query='';
@@ -16,9 +22,6 @@ class ControllerCore{
         foreach ($array as $row => $value){
             if ($row=='limit'){
                 $limit = $this->addLimitStatement($value);
-                $conditions--;
-            } else if ($row=='orderby'){
-                $query = $this->addOrderByStatement($value);
                 $conditions--;
             } else if ($row=='count'){
                 $conditions--;
@@ -36,6 +39,12 @@ class ControllerCore{
         return $query.$limit;
     }
     
+    /**
+     * adds the limit statement to the actual query
+     *
+     * @param string $limit
+     * @return string
+     */
     private function addLimitStatement($limit){
         $query='';
         $values=explode(',',$limit);
@@ -45,18 +54,25 @@ class ControllerCore{
         }
         return $query;
     }
-    private function addOrderByStatement($order){
-        $query='';
-        $query .= ' ORDER BY '.$order;
-        return $query;
-    }
 
+    /**
+     * executes a query
+     *
+     * @param string $query
+     * @return array
+     */
     protected function runQuery($query){
         $con = DB::getInstance();
         $res = $con->ejecutar($query);
         return $res;
     }
 
+    /**
+     * builds a select query
+     *
+     * @param array $data
+     * @return string
+     */
     protected function buildGETQuery($data){
         $query = 'SELECT * FROM '.$this->tableName;
         if ($data!="" && is_array($data)){
@@ -68,6 +84,12 @@ class ControllerCore{
         error_log(print_r($query,1));
         return $query;
     }
+    /**
+     * builds an insert query
+     *
+     * @param array $data
+     * @return string
+     */
     protected function buildPOSTQuery($data){
         // Object: {column_name: "value"} 
         if ($data!="" && is_object($data)){
@@ -88,6 +110,13 @@ class ControllerCore{
         error_log(print_r($query,1));
         return $query;
     }
+
+    /**
+     * builds an update query
+     *
+     * @param array $data
+     * @return string
+     */
     protected function buildPUTQuery($data){
         // Object: {column_name: "value"} 
         $count = 0;
@@ -104,6 +133,13 @@ class ControllerCore{
         error_log(print_r($query,1));
         return $query;
     }
+    
+    /**
+     * builds a delete query
+     *
+     * @param array $data
+     * @return string
+     */
     protected function buildDELETEQuery($data){
         error_log(print_r($data,1));
         $query = 'DELETE FROM '.$this->tableName;

@@ -2,20 +2,22 @@ project.controller('cartCtrl', function ($scope, usercart, services, toastr, $ro
     $scope.cartproducts = usercart;
     $scope.lastPurchase = previousCart; // last purchase table
     $scope.showLastP = true;
-    console.log("cart ctrl");
-    console.log(usercart);
-    console.log(previousCart);        
-        
-    
+  
     $scope.totalprice = 0;
     // calculate totalprice of existing products
     for (let i = 0; i < $scope.cartproducts.length; i++) {
-        console.log($scope.cartproducts[i]);
         $scope.totalprice += $scope.cartproducts[i].cant * $scope.cartproducts[i].price;
     }
 
 
-    // increase or decrease product
+    /**
+     * increase or decrease the quantity of a product depending of op
+     * value "i" means increase, any other means decrease
+     * Min value = 1
+     *
+     * @param object product
+     * @param string op
+     */
     $scope.incDecQ = function (product, op) {
         product.cant = parseInt(product.cant);
         if (op == "i") {
@@ -33,13 +35,16 @@ project.controller('cartCtrl', function ($scope, usercart, services, toastr, $ro
             }
         }
         services.req("PUT", "api/cart/user--" + product.user + "/id_prod--" + product.id_prod, { data: product });
-        console.log($scope.cartproducts);
     }
 
+    /**
+     * delete a product from the user's cart
+     *
+     * @param object product
+     */
     $scope.removeFromCart = function (product) {
         for (let i = 0; i < $scope.cartproducts.length; i++) {
             if ($scope.cartproducts[i].id_prod == product.id_prod && $scope.cartproducts[i].user == product.user) {
-                console.log($scope.cartproducts[i]);
                 $scope.cartproducts.splice(i, 1);
                 $scope.totalprice -= product.price * product.cant;
                 $rootScope.cart_num_prod -= product.cant;
@@ -49,12 +54,15 @@ project.controller('cartCtrl', function ($scope, usercart, services, toastr, $ro
         services.req("DELETE", "api/cart/user--" + product.user + "/id_prod--" + product.id_prod, { data: product });
     }
 
+    /**
+     * insert user's cart into purchases and deletes products of cart
+     *
+     */
     $scope.checkOut = function () {
-        console.log($scope.cartproducts);
         
         services.req("POST", "api/cart", { checkout: true, cart: $scope.cartproducts }).then(function (data) {
             data = CommonService.tryToParseJSON(data);
-            console.log(data);
+
             if (data) {
                 toastr.success("Purchase made succesfully.","Congratulations");
                 $scope.totalprice = 0;
@@ -73,6 +81,10 @@ project.controller('cartCtrl', function ($scope, usercart, services, toastr, $ro
         $route.reload();
     }
 
+    /**
+     * removes all cart products
+     *
+     */
     $scope.clearCart = function(){
         services.req("POST", "api/login", { op: "loggeduser" }).then(function (userinfo) {
             services.req("DELETE", "api/cart/user--"+ userinfo.data[0].ID).then(function(data){

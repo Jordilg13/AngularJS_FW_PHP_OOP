@@ -1,4 +1,5 @@
 project.factory("loginFunctions", ['$http','$q', function (services) {
+
     var obj = {};
     
     obj.getLoggedUser = function() {

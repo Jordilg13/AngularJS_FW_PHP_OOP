@@ -4,7 +4,10 @@ project.controller('contactusCtrl', function ($scope,services,toastr) {
         email: "",
         message: ""
     };
-    
+    /**
+     * it sends a contact email
+     *
+     */
     $scope.SubmitContact = function () {
         var data = {
             "name": $scope.contact.name, 

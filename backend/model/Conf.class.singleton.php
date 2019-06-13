@@ -21,6 +21,11 @@
         private function __clone() {
         }
 
+        /**
+         * create an instance of the classe only if it doesn't exists
+         *
+         * @return Conf
+         */
         public static function getInstance() {
             if (!(self::$_instance instanceof self))
                 self::$_instance = new self();

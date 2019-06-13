@@ -1,8 +1,12 @@
 project.factory("CommonService", ['$uibModal', function ($uibModal) {
   var service = {};
-  // service.openModal = openModal;
-
-  service.openModal = function (html, ctrl) {
+/**
+ * opens a modal with the specified template and it's controller
+ *
+ * @param string html
+ * @param string ctrl
+ */
+service.openModal = function (html, ctrl) {
     var modalInstance = $uibModal.open({
       animation: 'true',
       templateUrl: html,
@@ -10,8 +14,13 @@ project.factory("CommonService", ['$uibModal', function ($uibModal) {
       windowClass: 'show'
     });
   }
-
-  service.tryToParseJSON = function(data){
+/**
+ * try to parse a JSON string into an object, if it fails return the original data
+ *
+ * @param string data
+ * @returns Object
+ */
+service.tryToParseJSON = function(data){
     try {
       data2 = JSON.parse(data);
     } catch (error) {

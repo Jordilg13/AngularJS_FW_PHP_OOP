@@ -10,12 +10,17 @@ class ModelController extends ControllerCore{
     }
 
     public function request($data, $func){
-        // debug($data);
         $query=$this->$func($data);        
         return $this->runQuery($query);
     }
 
-    // i stoped using this when creating the classes, because each ModelController should has a different table name
+    /**
+     * @deprecated
+     * I stopped using this because each ModelController should has a different table name
+     *
+     * @param string $table
+     * @return void
+     */
     public static function getInstance($table) {
         if (!(self::$_instance instanceof self))
             self::$_instance = new self($table);

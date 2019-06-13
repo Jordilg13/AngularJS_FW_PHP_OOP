@@ -1,11 +1,15 @@
 project.controller('homeCtrl', function ($scope, $location, products, services) {
-   console.log("home controller");
-
    $scope.filteredProducts = {};
-
-
    // autocomplete (this should be a directive, but it has problems with the behavior of the products directive, and i haven't enough time to fix it)
    var filteredArray = [];
+
+   /**
+    * autocompletes the product names, the brand and the available date
+    * 3 fields are dependents of each others
+    *
+    * @param string searched
+    * @param angularjs_event_object event
+    */
    $scope.complete = function (searched, event) {
       var id = event.target.id;
       var output = [];
@@ -30,11 +34,16 @@ project.controller('homeCtrl', function ($scope, $location, products, services) 
                output.push(product[id]);
          }
       });
-      console.log(filteredArray);
 
       $scope.filteredProducts[id] = output;
-
    }
+
+   /**
+    * fill the inputtext with the clicked value of the suggested values
+    *
+    * @param string string
+    * @param angularjs_event_object event
+    */
    $scope.fillTextbox = function (string, event) {
       var id = event.target.parentNode.parentNode.children[0].id;
       $scope.searched[id] = string;
@@ -47,20 +56,20 @@ project.controller('homeCtrl', function ($scope, $location, products, services) 
 
 
 
-   // search button
+   /**
+    * search in the product database from the ones that match with the specified values
+    * if there is only one product, it redirects the client to the details page
+    *
+    * @param string searched
+    */
    $scope.searchButton = function(searched){
       if (searched) {
-         console.log(searched);
          var postdata = {sessionvar: "home_search_params", home_search_params: searched};
-         console.log(postdata);
          services.req("POST","backend/utils/session/setSession.php",postdata).then(function(data){
-            console.log(JSON.parse(data));
             if (JSON.parse(data) == "setted") {
                location.href = "#/shop";
             }
          });   
-      } else {
-         console.log("empty");
       }
    }
 

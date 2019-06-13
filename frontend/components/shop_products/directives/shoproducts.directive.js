@@ -1,3 +1,14 @@
+/**
+ * shows the products from db
+ * 
+ * SUPPORT
+ * - Likes btn
+ * - Cart btn
+ * - Redirect to details
+ *
+ *
+ * @example <shopproducts/>
+ */
 project.directive('shopproducts', function () {
 
     var controller = ['$scope', 'services', function ($scope, services) {
