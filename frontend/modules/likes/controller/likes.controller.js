@@ -8,6 +8,11 @@ project.controller('likesCtrl', function ($scope, userlikes, services, CommonSer
     }
     $scope.products = userlikes;
 
+    /**
+     * remove the clicked products from the user's favs 
+     *
+     * @param object prod
+     */
     $scope.removeLike = function (prod) {
         console.log(prod);
 
@@ -24,6 +29,10 @@ project.controller('likesCtrl', function ($scope, userlikes, services, CommonSer
         })
     }
 
+    /**
+     * remove all likes of user
+     *
+     */
     $scope.removeAll = function(){
         services.req("POST", "api/login", { op: "loggeduser" }).then(function (userinfo) {
             services.req("DELETE", "api/likes/user_l--"+ userinfo.data[0].ID).then(function(data){

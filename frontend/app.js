@@ -29,7 +29,6 @@ project.config(['$routeProvider', function ($routeProvider) {
             controller: 'shopDetailCtrl',
             resolve: {
                 detailsproduct: function (services, $route) {
-                    console.log($route.current.params.id);
                     return services.req("GET", "api/home/product_code--" + $route.current.params.id);
                 },
             }
@@ -55,7 +54,6 @@ project.config(['$routeProvider', function ($routeProvider) {
                 confiracc: function (services, $route, toastr, CommonService) {
                     return services.req("POST", "api/login/username--" + $route.current.params.username, { op: "enableaccount", token: $route.current.params.token }).then(function (response) {
                         response = CommonService.tryToParseJSON(response);
-                        console.log(response);
                         if (response) {
                             toastr.success("Your account has been activated succesfully.", "Enjoy!");
                         } else {
@@ -75,7 +73,6 @@ project.config(['$routeProvider', function ($routeProvider) {
                         if (!data) toastr.error("Something went wrong", "Error");
                         
                         services.req("DELETE","api/auth0").then(function(data){
-                            console.log(data);
                             window.location.href=data;
                         });
                         $rootScope.loggeduser = false;
@@ -127,7 +124,6 @@ project.config(['$routeProvider', function ($routeProvider) {
                 userlikes: function(services, CommonService,toastr) {
                     return services.req("POST", "api/login", { op: "loggeduser" }).then(function (userinfo) {
                         userinfo =  CommonService.tryToParseJSON(userinfo);
-                        console.log(typeof userinfo);
                         if (typeof userinfo == "object" && userinfo != "token expired") {
                             return services.req("GET", "api/likes/user_l--" + userinfo.data[0].ID);
                         } else {
@@ -161,7 +157,6 @@ project.run(function (services, $rootScope, toastr, CommonService) {
         $rootScope.login_card = {};
         services.req("POST", "api/login", { op: "loggeduser" }).then(function (data) {
             data = CommonService.tryToParseJSON(data);
-            console.log(data);            
 
             if (data == "token expired") {
 

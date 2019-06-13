@@ -10,7 +10,7 @@ project.controller('profileCtrl', function ($scope, services, userdata, $rootSco
         services.req("GET", "frontend/assets/resources/countries.json").then(function (countries) {
             $scope.countries = countries;
         })
-        .then(function () { // PROMISE THEN
+        .then(function () { 
             if ($scope.userinfo.location.length != 0) {
                 // find the user country and set it
                 $scope.countries.forEach(function (value, index, array) {
