@@ -45,22 +45,6 @@ project.controller('loginCtrl', function (services, toastr, $scope, $rootScope, 
     });
 
   }
-  // var pc = this;
-  // pc.data = "Lorem Name Test"; 
-  // $scope.recover_password = function(size){
 
-  //       var modalInstance = $uibModal.open({
-  //         animation: true,
-  //         ariaLabelledBy: 'modal-title',
-  //         ariaDescribedBy: 'modal-body',
-  //         template: 'frontend/modules/login/view/recover_password.html',
-  //         controllerAs: 'pc',
-  //         size: size,
-  //       });
-
-  //       modalInstance.result.then(function () {
-  //         alert("now I'll close the modal");
-  //       });
-  // }
 });
 

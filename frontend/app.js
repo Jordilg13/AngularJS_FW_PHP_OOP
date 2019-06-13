@@ -52,11 +52,11 @@ project.config(['$routeProvider', function ($routeProvider) {
 
         .when('/confirmaccount/:username/:token', {
             resolve: {
-                confiracc: function (services, $route, toastr) {
+                confiracc: function (services, $route, toastr, CommonService) {
                     return services.req("POST", "api/login/username--" + $route.current.params.username, { op: "enableaccount", token: $route.current.params.token }).then(function (response) {
-                        response = JSON.parse(JSON.stringify(response));
+                        response = CommonService.tryToParseJSON(response);
                         console.log(response);
-                        if (response == "true") {
+                        if (response) {
                             toastr.success("Your account has been activated succesfully.", "Enjoy!");
                         } else {
                             toastr.error("Something went wrong.", "Error");

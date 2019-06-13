@@ -53,10 +53,10 @@ if (empty($results)) { //register social
     error_log(print_r("asdf",1));
 
     if ($results == 1) {
-        LoginFunction::refreshToken($userInfo['nickname']);
+        $_SESSION['logged_user'] = LoginFunction::refreshToken($userInfo['nickname']);
     }
 } else { //login social
-    LoginFunction::refreshToken($userInfo['nickname']);
+    $_SESSION['logged_user'] =LoginFunction::refreshToken($userInfo['nickname']);
 }
 
 header('Location: http://localhost/angular/#/');

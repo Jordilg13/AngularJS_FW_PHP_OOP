@@ -21,7 +21,7 @@ project.controller('registerCtrl', function ($scope, services, toastr) {
                     // }
                 });
                 toastr.success("We have sent a message to confirm your account.","Email sent");
-                setTimeout(location.href="#/",3000);
+                location.href="#/",3000;
             } else {
                 toastr.error("Something went wrong.","Error");
             }
